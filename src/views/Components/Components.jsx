@@ -36,7 +36,7 @@ class Components extends React.Component {
     return (
       <div>
         <Header
-          brand="Material Kit React"
+          brand="Maca Nails"
           rightLinks={<HeaderLinks />}
           fixed
           color="transparent"
@@ -46,14 +46,15 @@ class Components extends React.Component {
           }}
           {...rest}
         />
-        <Parallax image={require("assets/img/bg4.jpg")}>
+        <Parallax image={require("assets/img/header-background.jpg")}>
           <div className={classes.container}>
             <GridContainer>
               <GridItem>
                 <div className={classes.brand}>
-                  <h1 className={classes.title}>Material Kit React.</h1>
+                  <h1 className={classes.title}>Maca Nails</h1>
                   <h3 className={classes.subtitle}>
-                    A Badass Material-UI Kit based on Material Design.
+                    Időpontfoglaláshoz görgess lejjebb.<br></br>
+                    Munkáimat a galériában találhatod.
                   </h3>
                 </div>
               </GridItem>

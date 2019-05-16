@@ -25,7 +25,7 @@ function HeaderLinks({ ...props }) {
       <ListItem className={classes.listItem}>
         <CustomDropdown
           noLiPadding
-          buttonText="Components"
+          buttonText="Menü"
           buttonProps={{
             className: classes.navLink,
             color: "transparent"
@@ -33,55 +33,28 @@ function HeaderLinks({ ...props }) {
           buttonIcon={Apps}
           dropdownList={[
             <Link to="/" className={classes.dropdownLink}>
-              All components
+              Galéria
             </Link>,
             <a
               href="https://creativetimofficial.github.io/material-kit-react/#/documentation"
               target="_blank"
               className={classes.dropdownLink}
             >
-              Documentation
+              Rólam
             </a>
           ]}
         />
       </ListItem>
       <ListItem className={classes.listItem}>
-        <Button
-          href="https://www.creative-tim.com/product/material-kit-react"
-          color="transparent"
-          target="_blank"
-          className={classes.navLink}
-        >
-          <CloudDownload className={classes.icons} /> Download
-        </Button>
-      </ListItem>
-      <ListItem className={classes.listItem}>
-        <Tooltip
-          id="instagram-twitter"
-          title="Follow us on twitter"
-          placement={window.innerWidth > 959 ? "top" : "left"}
-          classes={{ tooltip: classes.tooltip }}
-        >
-          <Button
-            href="https://twitter.com/CreativeTim"
-            target="_blank"
-            color="transparent"
-            className={classes.navLink}
-          >
-            <i className={classes.socialIcons + " fab fa-twitter"} />
-          </Button>
-        </Tooltip>
-      </ListItem>
-      <ListItem className={classes.listItem}>
         <Tooltip
           id="instagram-facebook"
-          title="Follow us on facebook"
+          title="Kövess facebookon is"
           placement={window.innerWidth > 959 ? "top" : "left"}
           classes={{ tooltip: classes.tooltip }}
         >
           <Button
             color="transparent"
-            href="https://www.facebook.com/CreativeTim"
+            href="https://www.facebook.com/nailsbymaca/"
             target="_blank"
             className={classes.navLink}
           >
@@ -92,13 +65,13 @@ function HeaderLinks({ ...props }) {
       <ListItem className={classes.listItem}>
         <Tooltip
           id="instagram-tooltip"
-          title="Follow us on instagram"
+          title="Kövess instagramon is"
           placement={window.innerWidth > 959 ? "top" : "left"}
           classes={{ tooltip: classes.tooltip }}
         >
           <Button
             color="transparent"
-            href="https://www.instagram.com/CreativeTimOfficial"
+            href="https://www.instagram.com/macanailart/?hl=hu"
             target="_blank"
             className={classes.navLink}
           >
