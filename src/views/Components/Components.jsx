@@ -27,6 +27,8 @@ import SectionCompletedExamples from "./Sections/SectionCompletedExamples.jsx";
 import SectionLogin from "./Sections/SectionLogin.jsx";
 import SectionExamples from "./Sections/SectionExamples.jsx";
 import SectionDownload from "./Sections/SectionDownload.jsx";
+import SectionOrder from "./Sections/SectionOrder.jsx";
+import SectionProfile from "./Sections/SectionProfile.jsx"
 
 import componentsStyle from "assets/jss/material-kit-react/views/components.jsx";
 
@@ -37,6 +39,7 @@ class Components extends React.Component {
       <div>
         <Header
           brand="Maca Nails"
+          image={<SectionProfile />}
           rightLinks={<HeaderLinks />}
           fixed
           color="transparent"
@@ -63,6 +66,8 @@ class Components extends React.Component {
         </Parallax>
 
         <div className={classNames(classes.main, classes.mainRaised)}>
+
+          <SectionOrder />
           <SectionBasics />
           <SectionNavbars />
           <SectionTabs />
