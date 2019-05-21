@@ -28,7 +28,8 @@ import SectionLogin from "./Sections/SectionLogin.jsx";
 import SectionExamples from "./Sections/SectionExamples.jsx";
 import SectionDownload from "./Sections/SectionDownload.jsx";
 import SectionOrder from "./Sections/SectionOrder.jsx";
-import SectionProfile from "./Sections/SectionProfile.jsx"
+import SectionProfile from "./Sections/SectionProfile.jsx";
+import SectionPersonalInfo from"./Sections/SectionPersonalInfo";
 
 import componentsStyle from "assets/jss/material-kit-react/views/components.jsx";
 
@@ -68,6 +69,7 @@ class Components extends React.Component {
         <div className={classNames(classes.main, classes.mainRaised)}>
 
           <SectionOrder />
+          <SectionPersonalInfo />
           <SectionBasics />
           <SectionNavbars />
           <SectionTabs />
