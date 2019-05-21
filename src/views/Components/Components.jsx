@@ -69,7 +69,7 @@ class Components extends React.Component {
         <div className={classNames(classes.main, classes.mainRaised)}>
 
           <SectionOrder />
-          <SectionPersonalInfo />
+          <SectionPersonalInfo/>
           <SectionBasics />
           <SectionNavbars />
           <SectionTabs />

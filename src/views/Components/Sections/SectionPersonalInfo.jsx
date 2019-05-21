@@ -18,7 +18,7 @@ import CustomInput from "components/CustomInput/CustomInput.jsx";
 
 import loginStyle from "assets/jss/material-kit-react/views/componentsSections/loginStyle.jsx";
 
-class SectionLogin extends React.Component {
+class SectionPersonalInfo extends React.Component {
     render() {
         const { classes } = this.props;
         return (
@@ -94,4 +94,4 @@ class SectionLogin extends React.Component {
     }
 }
 
-export default withStyles(loginStyle)(SectionLogin);
+export default withStyles(loginStyle)(SectionPersonalInfo);
