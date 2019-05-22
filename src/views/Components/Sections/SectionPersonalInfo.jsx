@@ -19,6 +19,20 @@ import CustomInput from "components/CustomInput/CustomInput.jsx";
 import loginStyle from "assets/jss/material-kit-react/views/componentsSections/loginStyle.jsx";
 
 class SectionPersonalInfo extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            name : " ",
+            mail : " ",
+            phone : " "
+        };
+        this.handleChangeUserInput = this.handleChangeUserInput.bind(this);
+    }
+    handleChangeUserInput(event) {
+        this.setState({ [event.target.id]: event.target.value });
+    }
+
+
     render() {
         const { classes } = this.props;
         return (
@@ -35,12 +49,13 @@ class SectionPersonalInfo extends React.Component {
                                     <CardBody>
                                         <CustomInput
                                             labelText="Név..."
-                                            id="first"
+                                            id="name"
                                             formControlProps={{
                                                 fullWidth: true
                                             }}
+                                            onChange={this.handleChangeUserInput}
                                             inputProps={{
-                                                type: "text",
+                                                type: "name",
                                                 endAdornment: (
                                                     <InputAdornment position="end">
                                                         <People className={classes.inputIconsColor} />
@@ -50,12 +65,13 @@ class SectionPersonalInfo extends React.Component {
                                         />
                                         <CustomInput
                                             labelText="Email..."
-                                            id="email"
+                                            id="mail"
                                             formControlProps={{
                                                 fullWidth: true
                                             }}
+                                            onChange={this.handleChangeUserInput}
                                             inputProps={{
-                                                type: "email",
+                                                type: "mail",
                                                 endAdornment: (
                                                     <InputAdornment position="end">
                                                         <Email className={classes.inputIconsColor} />
@@ -65,12 +81,13 @@ class SectionPersonalInfo extends React.Component {
                                         />
                                         <CustomInput
                                             labelText="Telefonszám..."
-                                            id="pass"
+                                            id="phone"
                                             formControlProps={{
                                                 fullWidth: true
                                             }}
+                                            onChange={this.handleChangeUserInput}
                                             inputProps={{
-                                                type: "password",
+                                                type: "phone",
                                                 endAdornment: (
                                                     <InputAdornment position="end">
                                                         <Phone className={classes.inputIconsColor} />
