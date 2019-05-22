@@ -28,10 +28,28 @@ class SectionPersonalInfo extends React.Component {
         };
         this.handleChangeUserInput = this.handleChangeUserInput.bind(this);
     }
-    handleChangeUserInput(event) {
-        this.setState({ [event.target.id]: event.target.value });
+    handleChangeUserInput = (event) => {
+        console.log(event.target.value);
+        this.setState({ [event.target.name] : event.target.value });
     }
+   
+    handleSubmit(event) {
 
+        const payload =JSON.stringify({"name": this.state.name, "mail": this.state.mail, "phone": this.state.phone});
+        console.log(payload);
+
+        fetch('http://localhost:8080/personal', {
+            method: 'POST',
+            mode: 'cors',
+            body: payload,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => response.json())
+            .then(response => console.log('Success:', response))
+            .catch(error => console.error('Error:', error));
+    }
 
     render() {
         const { classes } = this.props;
@@ -50,12 +68,18 @@ class SectionPersonalInfo extends React.Component {
                                         <CustomInput
                                             labelText="Név..."
                                             id="name"
+                                            name="name"
+
+                                            value={this.state.name}
+                                            onChange={this.handleChangeUserInput}
+
                                             formControlProps={{
                                                 fullWidth: true
                                             }}
-                                            onChange={this.handleChangeUserInput}
+
                                             inputProps={{
                                                 type: "name",
+
                                                 endAdornment: (
                                                     <InputAdornment position="end">
                                                         <People className={classes.inputIconsColor} />
@@ -66,6 +90,7 @@ class SectionPersonalInfo extends React.Component {
                                         <CustomInput
                                             labelText="Email..."
                                             id="mail"
+                                            name="mail"
                                             formControlProps={{
                                                 fullWidth: true
                                             }}
@@ -82,6 +107,8 @@ class SectionPersonalInfo extends React.Component {
                                         <CustomInput
                                             labelText="Telefonszám..."
                                             id="phone"
+                                            name="phone"
+                                            errorText="This field is required"
                                             formControlProps={{
                                                 fullWidth: true
                                             }}
@@ -97,7 +124,7 @@ class SectionPersonalInfo extends React.Component {
                                         />
                                     </CardBody>
                                     <CardFooter className={classes.cardFooter}>
-                                        <Button simple color="primary" size="lg">
+                                        <Button label="submit" simple color="primary" size="lg" onClick={(event) =>  this.handleSubmit(event)}>
                                             Időpont mentése
                                         </Button>
                                     </CardFooter>
