@@ -31,11 +31,7 @@ class SectionOrder extends React.Component {
 
     handleClick(event) {
 
-        const payload = {
-            "answers": this.state.answers
-        };
-        console.log(payload)
-
+        const payload =JSON.stringify({"answers": this.state.answers});
 
         fetch('http://localhost:8080', {
             method: 'POST', // or 'PUT'

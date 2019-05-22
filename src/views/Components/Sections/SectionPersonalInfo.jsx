@@ -64,7 +64,7 @@ class SectionPersonalInfo extends React.Component {
                                             }}
                                         />
                                         <CustomInput
-                                            labelText="Telefonszám"
+                                            labelText="Telefonszám..."
                                             id="pass"
                                             formControlProps={{
                                                 fullWidth: true
