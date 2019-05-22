@@ -18,14 +18,7 @@ class SectionOrder extends React.Component {
     }
     saveRadioAnswer(id, answer){
         let answers = [...this.state.answers];   //creating the copy
-        if (id == 1){
-            answers[0]= answer;
-        }
-        else if (id == 2){
-            answers[1] = answer;
-        }else {
-            answers[2] = answer;
-        }
+            answers[id-1] = answer
         this.setState({answers: answers});
     }
 
