@@ -12,7 +12,7 @@ class SectionOrder extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            answers : [],
+            answers : ["a","d","f"],
         };
 
     }

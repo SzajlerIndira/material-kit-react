@@ -16,7 +16,7 @@ class SectionRadioQuestion1 extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectedEnabled: " ",
+            selectedEnabled: "a",
             id : 1,
 
         };

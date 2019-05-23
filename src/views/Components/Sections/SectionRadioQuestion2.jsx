@@ -15,12 +15,11 @@ class SectionRadioQuestion2 extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectedEnabled: " ",
+            selectedEnabled: "d",
             id : 2,
 
         };
         this.handleChangeEnabled = this.handleChangeEnabled.bind(this);
-
     }
 
     handleChangeEnabled(event) {
