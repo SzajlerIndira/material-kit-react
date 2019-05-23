@@ -30,9 +30,10 @@ import SectionDownload from "./Sections/SectionDownload.jsx";
 import SectionOrder from "./Sections/SectionOrder.jsx";
 import SectionProfile from "./Sections/SectionProfile.jsx";
 import SectionPersonalInfo from"./Sections/SectionPersonalInfo";
+import SectionCalendar from "./Sections/SectionCalendar";
 //scroll
-import ScrollableAnchor from 'react-scrollable-anchor'
 
+import ScrollableAnchor from 'react-scrollable-anchor'
 import componentsStyle from "assets/jss/material-kit-react/views/components.jsx";
 
 class Components extends React.Component {
@@ -74,6 +75,7 @@ class Components extends React.Component {
           <ScrollableAnchor id={'section1'}>
             <SectionPersonalInfo/>
           </ScrollableAnchor>
+          <SectionCalendar/>
 
           <SectionBasics />
           <SectionNavbars />
