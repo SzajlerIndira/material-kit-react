@@ -53,7 +53,8 @@ class SectionOrder extends React.Component {
                     <SectionRadioQuestion3 saveRadioAnswer3= {this.saveRadioAnswer.bind(this)}/>
                     <br></br>
                     <div id="buttons"  >
-                        <Button label="submit" color="rose" round onClick={(event) =>  this.handleClick(event)}>Időpont foglalás</Button>
+                        <Button label="submit" color="rose" round onClick={(event) =>  this.handleClick(event)} href='#section1'>
+                            Időpont foglalás</Button>
                     </div>
                 </div>
             </div>
