@@ -22,7 +22,7 @@ class SectionPersonalInfo extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            name : " ",
+            name : "default",
             mail : " ",
             phone : " "
         };
@@ -32,7 +32,7 @@ class SectionPersonalInfo extends React.Component {
         console.log(event.target.value);
         this.setState({ [event.target.name] : event.target.value });
     }
-   
+
     handleSubmit(event) {
 
         const payload =JSON.stringify({"name": this.state.name, "mail": this.state.mail, "phone": this.state.phone});
@@ -69,9 +69,7 @@ class SectionPersonalInfo extends React.Component {
                                             labelText="Név..."
                                             id="name"
                                             name="name"
-
-                                            value={this.state.name}
-                                            onChange={this.handleChangeUserInput}
+                                            onChange={this.handleChangeUserInput.bind(this)}
 
                                             formControlProps={{
                                                 fullWidth: true
@@ -94,7 +92,7 @@ class SectionPersonalInfo extends React.Component {
                                             formControlProps={{
                                                 fullWidth: true
                                             }}
-                                            onChange={this.handleChangeUserInput}
+                                            onChange={this.handleChangeUserInput.bind(this)}
                                             inputProps={{
                                                 type: "mail",
                                                 endAdornment: (
@@ -112,7 +110,7 @@ class SectionPersonalInfo extends React.Component {
                                             formControlProps={{
                                                 fullWidth: true
                                             }}
-                                            onChange={this.handleChangeUserInput}
+                                            onChange={this.handleChangeUserInput.bind(this)}
                                             inputProps={{
                                                 type: "phone",
                                                 endAdornment: (
