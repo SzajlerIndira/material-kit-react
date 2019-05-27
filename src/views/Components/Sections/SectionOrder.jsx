@@ -3,28 +3,40 @@ import React from "react";
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
 import Button from "components/CustomButtons/Button.jsx";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Radio from "@material-ui/core/Radio";
+// @material-ui/icons
+import FiberManualRecord from "@material-ui/icons/FiberManualRecord";
+// core components
+import GridContainer from "components/Grid/GridContainer.jsx";
+import GridItem from "components/Grid/GridItem.jsx";
+
 import basicsStyle from "assets/jss/material-kit-react/views/componentsSections/basicsStyle.jsx";
-import SectionRadioQuestion1 from "./SectionRadioQuestion1";
-import SectionRadioQuestion2 from "./SectionRadioQuestion2";
-import SectionRadioQuestion3 from "./SectionRadioQuestion3";
+
 
 class SectionOrder extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            answers : ["a","d","f"],
+            nailType: "FILLING",
+            shape: "SQUARE",
+            decoration: "YES",
         };
+        this.handleChangeEnabled = this.handleChangeEnabled.bind(this);
 
     }
-    saveRadioAnswer(id, answer){
-        let answers = [...this.state.answers];   //creating the copy
-            answers[id-1] = answer
-        this.setState({answers: answers});
+
+    handleChangeEnabled(event) {
+        this.setState({ [event.target.name] : event.target.value });
+
     }
 
     handleClick(event) {
 
-        const payload =JSON.stringify({"answers": this.state.answers});
+        const payload =JSON.stringify({
+            nailType: this.state.nailType,
+            shape: this.state.shape,
+            decoration: this.state.decoration});
 
         fetch('http://localhost:8080', {
             method: 'POST', // or 'PUT'
@@ -48,10 +60,266 @@ class SectionOrder extends React.Component {
                     <div className={classes.title}>
                         <h3>A szükséges idő kalkulálásához kérlek, add meg az alábbi paramétereket!</h3>
                     </div>
-                    <SectionRadioQuestion1 saveRadioAnswer1= {this.saveRadioAnswer.bind(this)} />
-                    <SectionRadioQuestion2 saveRadioAnswer2= {this.saveRadioAnswer.bind(this)}/>
-                    <SectionRadioQuestion3 saveRadioAnswer3= {this.saveRadioAnswer.bind(this)}/>
-                    <br></br>
+                    <GridContainer >
+                        <GridItem xs={12} sm={6} md={4} lg={3}>
+                            <div className={classes.title}>
+                                <h3>Válassz típust!:</h3>
+                            </div>
+                            <div
+                                className={
+                                    classes.checkboxAndRadio +
+                                    " " +
+                                    classes.checkboxAndRadioHorizontal
+                                }
+                            >
+                                <FormControlLabel
+                                    control={
+                                        <Radio
+                                            checked={this.state.nailType === "FILLING"}
+                                            onChange={this.handleChangeEnabled}
+                                            value="FILLING"
+                                            name="nailType"
+                                            aria-label="FILLING"
+                                            icon={
+                                                <FiberManualRecord
+                                                    className={classes.radioUnchecked}
+                                                />
+                                            }
+                                            checkedIcon={
+                                                <FiberManualRecord className={classes.radioChecked}/>
+                                            }
+                                            classes={{
+                                                checked: classes.radio
+                                            }}
+                                        />
+                                    }
+                                    classes={{
+                                        label: classes.label
+                                    }}
+                                    label="Töltés"
+                                />
+                            </div>
+                            <div
+                                className={
+                                    classes.checkboxAndRadio +
+                                    " " +
+                                    classes.checkboxAndRadioHorizontal
+                                }
+                            >
+                                <FormControlLabel
+                                    control={
+                                        <Radio
+                                            checked={this.state.nailType === "REMOVING"}
+                                            onChange={this.handleChangeEnabled}
+                                            value="REMOVING"
+                                            name="nailType"
+                                            aria-label="REMOVING"
+                                            icon={
+                                                <FiberManualRecord
+                                                    className={classes.radioUnchecked}
+                                                />
+                                            }
+                                            checkedIcon={
+                                                <FiberManualRecord className={classes.radioChecked}/>
+                                            }
+                                            classes={{
+                                                checked: classes.radio
+                                            }}
+                                        />
+                                    }
+                                    classes={{
+                                        label: classes.label
+                                    }}
+                                    label="Levétel"
+                                />
+                            </div>
+                            <div
+                                className={
+                                    classes.checkboxAndRadio +
+                                    " " +
+                                    classes.checkboxAndRadioHorizontal
+                                }
+                            >
+                                <FormControlLabel
+                                    control={
+                                        <Radio
+                                            checked={this.state.nailType === "BUILDING"}
+                                            onChange={this.handleChangeEnabled}
+                                            value="BUILDING"
+                                            name="nailType"
+                                            aria-label="BUILDING"
+                                            icon={
+                                                <FiberManualRecord
+                                                    className={classes.radioUnchecked}
+                                                />
+                                            }
+                                            checkedIcon={
+                                                <FiberManualRecord className={classes.radioChecked}/>
+                                            }
+                                            classes={{
+                                                checked: classes.radio
+                                            }}
+                                        />
+                                    }
+                                    classes={{
+                                        label: classes.label
+                                    }}
+                                    label="Építés"
+                                />
+                            </div>
+                        </GridItem>
+                    </GridContainer>
+
+                    <GridContainer>
+                        <GridItem xs={12} sm={6} md={4} lg={3}>
+                            <div className={classes.title}>
+                                <h3>Válassz formát</h3>
+                            </div>
+                            <div
+                                className={
+                                    classes.checkboxAndRadio +
+                                    " " +
+                                    classes.checkboxAndRadioHorizontal
+                                }
+                            >
+                                <FormControlLabel
+                                    control={
+                                        <Radio
+                                            checked={this.state.shape === "SQUARE"}
+                                            onChange={this.handleChangeEnabled}
+                                            value="SQUARE"
+                                            name="shape"
+                                            aria-label="SQUARE"
+                                            icon={
+                                                <FiberManualRecord
+                                                    className={classes.radioUnchecked}
+                                                />
+                                            }
+                                            checkedIcon={
+                                                <FiberManualRecord className={classes.radioChecked}/>
+                                            }
+                                            classes={{
+                                                checked: classes.radio
+                                            }}
+                                        />
+                                    }
+                                    classes={{
+                                        label: classes.label
+                                    }}
+                                    label="szögletes"
+                                />
+                            </div>
+                            <div
+                                className={
+                                    classes.checkboxAndRadio +
+                                    " " +
+                                    classes.checkboxAndRadioHorizontal
+                                }
+                            >
+                                <FormControlLabel
+                                    control={
+                                        <Radio
+                                            checked={this.state.shape === "ROUND"}
+                                            onChange={this.handleChangeEnabled}
+                                            value="ROUND"
+                                            name="shape"
+                                            aria-label="ROUND"
+                                            icon={
+                                                <FiberManualRecord
+                                                    className={classes.radioUnchecked}
+                                                />
+                                            }
+                                            checkedIcon={
+                                                <FiberManualRecord className={classes.radioChecked}/>
+                                            }
+                                            classes={{
+                                                checked: classes.radio
+                                            }}
+                                        />
+                                    }
+                                    classes={{
+                                        label: classes.label
+                                    }}
+                                    label="KEREK"
+                                />
+                            </div>
+                        </GridItem>
+                    </GridContainer>
+                    <GridContainer>
+                        <GridItem xs={12} sm={6} md={4} lg={3}>
+                            <div className={classes.title}>
+                                <h3>Díszítést kérsz?</h3>
+                            </div>
+                            <div
+                                className={
+                                    classes.checkboxAndRadio +
+                                    " " +
+                                    classes.checkboxAndRadioHorizontal
+                                }
+                            >
+                                <FormControlLabel
+                                    control={
+                                        <Radio
+                                            checked={this.state.decoration === "YES"}
+                                            onChange={this.handleChangeEnabled}
+                                            value="YES"
+                                            name="decoration"
+                                            aria-label="YES"
+                                            icon={
+                                                <FiberManualRecord
+                                                    className={classes.radioUnchecked}
+                                                />
+                                            }
+                                            checkedIcon={
+                                                <FiberManualRecord className={classes.radioChecked}/>
+                                            }
+                                            classes={{
+                                                checked: classes.radio
+                                            }}
+                                        />
+                                    }
+                                    classes={{
+                                        label: classes.label
+                                    }}
+                                    label="Igen"
+                                />
+                            </div>
+                            <div
+                                className={
+                                    classes.checkboxAndRadio +
+                                    " " +
+                                    classes.checkboxAndRadioHorizontal
+                                }
+                            >
+                                <FormControlLabel
+                                    control={
+                                        <Radio
+                                            checked={this.state.decoration === "NO"}
+                                            onChange={this.handleChangeEnabled}
+                                            value="NO"
+                                            name="decoration"
+                                            aria-label="NO"
+                                            icon={
+                                                <FiberManualRecord
+                                                    className={classes.radioUnchecked}
+                                                />
+                                            }
+                                            checkedIcon={
+                                                <FiberManualRecord className={classes.radioChecked}/>
+                                            }
+                                            classes={{
+                                                checked: classes.radio
+                                            }}
+                                        />
+                                    }
+                                    classes={{
+                                        label: classes.label
+                                    }}
+                                    label="Nem"
+                                />
+                            </div>
+                        </GridItem>
+                    </GridContainer>
                     <div id="buttons"  >
                         <Button label="submit" color="rose" round onClick={(event) =>  this.handleClick(event)} href='#section1'>
                             Időpont foglalás</Button>
