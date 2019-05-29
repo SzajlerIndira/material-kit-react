@@ -71,8 +71,10 @@ class Components extends React.Component {
 
         <div className={classNames(classes.main, classes.mainRaised)}>
 
-          <SectionOrder />
-          <ScrollableAnchor id={'section1'}>
+          <ScrollableAnchor id={'nail'}>
+            <SectionOrder />
+          </ScrollableAnchor>
+          <ScrollableAnchor id={'personal'}>
             <SectionPersonalInfo/>
           </ScrollableAnchor>
           <SectionCalendar/>

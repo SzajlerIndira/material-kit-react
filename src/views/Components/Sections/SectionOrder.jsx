@@ -18,25 +18,34 @@ class SectionOrder extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            nailType: "FILLING",
-            shape: "SQUARE",
-            decoration: "YES",
+            nailType: " ",
+            shape: " ",
+            decoration: " ",
+            href: "#nail",
         };
         this.handleChangeEnabled = this.handleChangeEnabled.bind(this);
 
     }
-
     handleChangeEnabled(event) {
-        this.setState({ [event.target.name] : event.target.value });
+        this.setState({[event.target.name]: event.target.value});
 
     }
 
-    handleClick(event) {
+    handleError(event){
+        if (this.state.nailType ==" "||this.state.shape== " " || this.state.decoration==" " ) {
+            alert("Kérlek, adj meg minden paramétert!");
+        }else {
+            this.handleClick();
+        }
+    }
 
-        const payload =JSON.stringify({
+    handleClick(event){
+
+        const payload = JSON.stringify({
             nailType: this.state.nailType,
             shape: this.state.shape,
-            decoration: this.state.decoration});
+            decoration: this.state.decoration
+        });
 
         fetch('http://localhost:8080', {
             method: 'POST', // or 'PUT'
@@ -48,11 +57,14 @@ class SectionOrder extends React.Component {
         })
             .then(response => response.json())
             .then(response => console.log('Success:', response))
-            .catch(error => console.error('Error:', error));
+            .catch(error => console.error('Error:', error))
+
+        this.setState({"href": '#personal'});
+       // document.getElementById("submitbutton").href = '#section1';
+
     }
-
-
-    render() {
+    render()
+    {
         const {classes} = this.props;
         return (
             <div className={classes.sections}>
@@ -60,7 +72,7 @@ class SectionOrder extends React.Component {
                     <div className={classes.title}>
                         <h3>A szükséges idő kalkulálásához kérlek, add meg az alábbi paramétereket!</h3>
                     </div>
-                    <GridContainer >
+                    <GridContainer>
                         <GridItem xs={12} sm={6} md={4} lg={3}>
                             <div className={classes.title}>
                                 <h3>Válassz típust!:</h3>
@@ -320,8 +332,9 @@ class SectionOrder extends React.Component {
                             </div>
                         </GridItem>
                     </GridContainer>
-                    <div id="buttons"  >
-                        <Button label="submit" color="rose" round onClick={(event) =>  this.handleClick(event)} href='#section1'>
+                    <div id="buttons">
+                        <Button  id= "submitbutton" label="submit" color="rose" round onClick={(event) =>this.handleError(event)}
+                                href={this.state.href} >
                             Időpont foglalás</Button>
                     </div>
                 </div>
@@ -329,5 +342,4 @@ class SectionOrder extends React.Component {
         );
     }
 }
-
 export default withStyles(basicsStyle)(SectionOrder);
