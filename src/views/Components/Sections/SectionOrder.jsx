@@ -12,6 +12,7 @@ import GridContainer from "components/Grid/GridContainer.jsx";
 import GridItem from "components/Grid/GridItem.jsx";
 
 import basicsStyle from "assets/jss/material-kit-react/views/componentsSections/basicsStyle.jsx";
+import SectionWarningNotification from "views/Components/Sections/SectionWarningNotification.jsx";
 
 
 class SectionOrder extends React.Component {
@@ -22,6 +23,7 @@ class SectionOrder extends React.Component {
             shape: " ",
             decoration: " ",
             href: "#nail",
+            isWarning: false,
         };
         this.handleChangeEnabled = this.handleChangeEnabled.bind(this);
 
@@ -32,11 +34,21 @@ class SectionOrder extends React.Component {
     }
 
     handleError(event){
+        this.state.isWarning = false;
         if (this.state.nailType ==" "||this.state.shape== " " || this.state.decoration==" " ) {
-            alert("Kérlek, adj meg minden paramétert!");
+            this.state.isWarning = true;
+            // alert("Kérlek, adj meg minden paramétert!");
         }else {
             this.handleClick();
         }
+    }
+
+    renderAlert(){
+        return(
+            <div>
+                <SectionWarningNotification/>
+            </div>
+        );
     }
 
     handleClick(event){
@@ -66,6 +78,10 @@ class SectionOrder extends React.Component {
     render()
     {
         const {classes} = this.props;
+        let warning;
+        if(this.state.isWarning) {
+            warning = this.renderAlert();
+        }
         return (
             <div className={classes.sections}>
                 <div className={classes.container}>
@@ -181,7 +197,6 @@ class SectionOrder extends React.Component {
                             </div>
                         </GridItem>
                     </GridContainer>
-
                     <GridContainer>
                         <GridItem xs={12} sm={6} md={4} lg={3}>
                             <div className={classes.title}>
@@ -337,6 +352,7 @@ class SectionOrder extends React.Component {
                                 href={this.state.href} >
                             Időpont foglalás</Button>
                     </div>
+                    {warning}
                 </div>
             </div>
         );
