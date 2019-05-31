@@ -17,6 +17,10 @@ import Button from "components/CustomButtons/Button.jsx";
 import CustomInput from "components/CustomInput/CustomInput.jsx";
 
 import loginStyle from "assets/jss/material-kit-react/views/componentsSections/loginStyle.jsx";
+import {Link} from "react-router-dom";
+import CustomDropdown from "components/CustomDropdown/CustomDropdown.jsx";
+import {Apps} from "@material-ui/icons";
+
 
 class SectionPersonalInfo extends React.Component {
     constructor(props) {
@@ -24,7 +28,20 @@ class SectionPersonalInfo extends React.Component {
         this.state = {
             name : " ",
             mail : " ",
-            phone : " "
+            phone : " ",
+            day : [{
+                id: 0,
+                title: 'Date 1',
+                selected: false,
+                key: 'day'
+            },
+            {
+                id: 1,
+                title: 'Date 2',
+                selected: false,
+                key: 'day'
+            }
+            ]
         };
         this.handleChangeUserInput = this.handleChangeUserInput.bind(this);
     }
@@ -120,6 +137,28 @@ class SectionPersonalInfo extends React.Component {
                                                 )
                                             }}
                                         />
+                                        <div>
+                                            <CustomDropdown
+                                                buttonText="Választható napok:"
+                                                buttonProps={{
+                                                    className: classes.navLink,
+                                                    color: "rose"
+                                                }}
+                                                dropdownList={["day 1", "day 2"]}
+                                            />
+                                        <CustomDropdown
+                                            buttonText="Választható órák:"
+                                            buttonProps={{
+                                                className: classes.navLink,
+                                                color: "rose"
+                                            }}
+                                            dropdownList={[
+                                                "10-11",
+                                                "11-12",
+                                                "12-13"
+                                            ]}
+                                        />
+                                     </div>
                                     </CardBody>
                                     <CardFooter className={classes.cardFooter}>
                                         <Button label="submit" simple color="primary" size="lg" onClick={(event) =>  this.handleSubmit(event)}>
