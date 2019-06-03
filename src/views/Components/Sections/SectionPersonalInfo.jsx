@@ -17,9 +17,7 @@ import Button from "components/CustomButtons/Button.jsx";
 import CustomInput from "components/CustomInput/CustomInput.jsx";
 
 import loginStyle from "assets/jss/material-kit-react/views/componentsSections/loginStyle.jsx";
-import {Link} from "react-router-dom";
 import CustomDropdown from "components/CustomDropdown/CustomDropdown.jsx";
-import {Apps} from "@material-ui/icons";
 
 
 class SectionPersonalInfo extends React.Component {
@@ -29,30 +27,33 @@ class SectionPersonalInfo extends React.Component {
             name : " ",
             mail : " ",
             phone : " ",
-            day : [{
-                id: 0,
-                title: 'Date 1',
-                selected: false,
-                key: 'day'
-            },
-            {
-                id: 1,
-                title: 'Date 2',
-                selected: false,
-                key: 'day'
-            }
-            ]
+            days: ['Date 1', 'Date 2'],
+            hours:[
+                "10-11",
+                "11-12",
+                "12-13"
+            ],
+            selectedDay:' ',
+            selectedHour:' ',
         };
         this.handleChangeUserInput = this.handleChangeUserInput.bind(this);
+
     }
     handleChangeUserInput = (event) => {
         console.log(event.target.value);
         this.setState({ [event.target.name] : event.target.value });
     }
+    handleClickHour( value) {
+        this.setState({"selectedHour" : value });
+    }
+    handleClickDay( value) {
+        this.setState({"selectedDay" : value });
+    }
 
     handleSubmit(event) {
 
-        const payload =JSON.stringify({"name": this.state.name, "mail": this.state.mail, "phone": this.state.phone});
+        const payload =JSON.stringify({"name": this.state.name, "mail": this.state.mail, "phone": this.state.phone,
+        "selectedDay":this.state.selectedDay, "selectedHour": this.state.selectedHour});
         console.log(payload);
 
         fetch('http://localhost:8080/personal', {
@@ -138,25 +139,24 @@ class SectionPersonalInfo extends React.Component {
                                             }}
                                         />
                                         <div>
-                                            <CustomDropdown
+                                            <CustomDropdown onClick={this.handleClickDay.bind(this)}
                                                 buttonText="Választható napok:"
                                                 buttonProps={{
                                                     className: classes.navLink,
                                                     color: "rose"
                                                 }}
-                                                dropdownList={["day 1", "day 2"]}
+                                                dropdownList={this.state.days}
+
                                             />
-                                        <CustomDropdown
+                                        <CustomDropdown onClick={this.handleClickHour.bind(this)}
                                             buttonText="Választható órák:"
                                             buttonProps={{
                                                 className: classes.navLink,
                                                 color: "rose"
                                             }}
-                                            dropdownList={[
-                                                "10-11",
-                                                "11-12",
-                                                "12-13"
-                                            ]}
+                                            dropdownList={this.state.hours}
+
+
                                         />
                                      </div>
                                     </CardBody>
