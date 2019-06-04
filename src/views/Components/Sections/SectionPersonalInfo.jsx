@@ -27,12 +27,8 @@ class SectionPersonalInfo extends React.Component {
             name : " ",
             mail : " ",
             phone : " ",
-            days: ['Date 1', 'Date 2'],
-            hours:[
-                "10-11",
-                "11-12",
-                "12-13"
-            ],
+            days: ["monday"],
+            hours:["1-2"],
             selectedDay:' ',
             selectedHour:' ',
         };
@@ -49,9 +45,20 @@ class SectionPersonalInfo extends React.Component {
     handleClickDay( value) {
         this.setState({"selectedDay" : value });
     }
+    renderHours(){
+        const { classes } = this.props;
+        return (
+        <CustomDropdown onClick={this.handleClickHour.bind(this)}
+                        buttonText="Választható órák:"
+                        buttonProps={{
+                            className: classes.navLink,
+                            color: "rose"
+                        }}
+                        dropdownList={this.state.hours}
+        />);
+    }
 
-    handleSubmit(event) {
-
+     handleSubmit(event) {
         const payload =JSON.stringify({"name": this.state.name, "mail": this.state.mail, "phone": this.state.phone,
         "selectedDay":this.state.selectedDay, "selectedHour": this.state.selectedHour});
         console.log(payload);
@@ -71,6 +78,10 @@ class SectionPersonalInfo extends React.Component {
 
     render() {
         const { classes } = this.props;
+        let hoursPerDay;
+        if(this.state.selectedDay!=" "){
+            hoursPerDay = this.renderHours();
+        }
         return (
             <div className={classes.section}>
                 <div className={classes.container}>
@@ -148,17 +159,10 @@ class SectionPersonalInfo extends React.Component {
                                                 dropdownList={this.state.days}
 
                                             />
-                                        <CustomDropdown onClick={this.handleClickHour.bind(this)}
-                                            buttonText="Választható órák:"
-                                            buttonProps={{
-                                                className: classes.navLink,
-                                                color: "rose"
-                                            }}
-                                            dropdownList={this.state.hours}
-
-
-                                        />
                                      </div>
+                                        <div>
+                                            {hoursPerDay}
+                                        </div>
                                     </CardBody>
                                     <CardFooter className={classes.cardFooter}>
                                         <Button label="submit" simple color="primary" size="lg" onClick={(event) =>  this.handleSubmit(event)}>
