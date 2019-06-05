@@ -27,12 +27,12 @@ class SectionPersonalInfo extends React.Component {
             name : " ",
             mail : " ",
             phone : " ",
-            days: ["monday", "tuesday"],
-            hours:{monday:["1-2","4-5","6-7"], tuesday: ["11-12", "13-14"]},
             selectedDay:' ',
             selectedHour:' ',
         };
         this.handleChangeUserInput = this.handleChangeUserInput.bind(this);
+        this.handleClickDay = this.handleClickDay.bind(this);
+        this.handleClickHour = this.handleClickHour.bind(this);
 
     }
     handleChangeUserInput = (event) => {
@@ -40,10 +40,11 @@ class SectionPersonalInfo extends React.Component {
         this.setState({ [event.target.name] : event.target.value });
     }
     handleClickHour( value) {
-        this.setState({"selectedHour" : value });
+        this.setState({selectedHour : value });
     }
-    handleClickDay( value) {
-        this.setState({"selectedDay" : value });
+    handleClickDay( value){
+        console.log(value);
+        this.setState({selectedDay : value });
     }
     renderHours(){
         const { classes } = this.props;
@@ -54,7 +55,7 @@ class SectionPersonalInfo extends React.Component {
                             className: classes.navLink,
                             color: "rose"
                         }}
-                        dropdownList={this.state.hours[this.state.selectedDay]}
+                        dropdownList={this.props.freeSlots[this.state.selectedDay]}
         />);
     }
 
@@ -156,7 +157,7 @@ class SectionPersonalInfo extends React.Component {
                                                     className: classes.navLink,
                                                     color: "rose"
                                                 }}
-                                                dropdownList={this.state.days}
+                                                dropdownList={this.props.freeDays}
 
                                             />
                                      </div>

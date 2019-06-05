@@ -37,6 +37,18 @@ import ScrollableAnchor from 'react-scrollable-anchor'
 import componentsStyle from "assets/jss/material-kit-react/views/components.jsx";
 
 class Components extends React.Component {
+  constructor(props){
+    super(props);
+      this.state={
+
+        freeSlots: {
+          monday: ["11-12","13-14"],
+          wednesday: ["13-14", "12-14"]
+        },
+        freeDays:["monday", "wednesday" ]
+      }
+  }
+
   render() {
     const { classes, ...rest } = this.props;
     return (
@@ -75,7 +87,7 @@ class Components extends React.Component {
             <SectionOrder />
           </ScrollableAnchor>
           <ScrollableAnchor id={'personal'}>
-            <SectionPersonalInfo/>
+            <SectionPersonalInfo freeSlots = {this.state.freeSlots} freeDays = {this.state.freeDays}/>
           </ScrollableAnchor>
           <SectionCalendar/>
 
