@@ -27,8 +27,8 @@ class SectionPersonalInfo extends React.Component {
             name : " ",
             mail : " ",
             phone : " ",
-            days: ["monday"],
-            hours:["1-2"],
+            days: ["monday", "tuesday"],
+            hours:{monday:["1-2","4-5","6-7"], tuesday: ["11-12", "13-14"]},
             selectedDay:' ',
             selectedHour:' ',
         };
@@ -54,7 +54,7 @@ class SectionPersonalInfo extends React.Component {
                             className: classes.navLink,
                             color: "rose"
                         }}
-                        dropdownList={this.state.hours}
+                        dropdownList={this.state.hours[this.state.selectedDay]}
         />);
     }
 
