@@ -24,6 +24,7 @@ class SectionOrder extends React.Component {
             decoration: " ",
             href: "#nail",
             isWarning: false,
+            freeSlots:{},
         };
         this.handleChangeEnabled = this.handleChangeEnabled.bind(this);
 
@@ -51,6 +52,10 @@ class SectionOrder extends React.Component {
         );
     }
 
+    saveFreeSlots(){
+        this.props.saveFreeSlots(this.state.freeSlots);
+    }
+
     handleClick(event){
 
         const payload = JSON.stringify({
@@ -68,7 +73,10 @@ class SectionOrder extends React.Component {
             }
         })
             .then(response => response.json())
-            .then(response => console.log('Success:', response))
+            .then(response =>  this.setState({
+                freeSlots:response
+            },this.saveFreeSlots))
+            .then(response => console.log('Success:',response, this.state.freeSlots))
             .catch(error => console.error('Error:', error))
 
         this.setState({"href": '#personal'});

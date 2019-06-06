@@ -43,7 +43,6 @@ class SectionPersonalInfo extends React.Component {
         this.setState({selectedHour : value });
     }
     handleClickDay( value){
-        console.log(value);
         this.setState({selectedDay : value });
     }
     renderHours(){

@@ -41,12 +41,16 @@ class Components extends React.Component {
     super(props);
       this.state={
 
-        freeSlots: {
-          monday: ["11-12","13-14"],
-          wednesday: ["13-14", "12-14"]
-        },
-        freeDays:["monday", "wednesday" ]
+        freeSlots: {},
+        freeDays:["sunday", "monday", "tuesday" ]
       }
+      this.saveFreeSlots = this.saveFreeSlots.bind(this);
+  }
+
+  saveFreeSlots=(slots) => {
+    // let freeSlots = {...this.state.freeSlots};
+    this.setState({freeSlots: slots});
+    console.log(this.state.freeSlots)
   }
 
   render() {
@@ -84,7 +88,7 @@ class Components extends React.Component {
         <div className={classNames(classes.main, classes.mainRaised)}>
 
           <ScrollableAnchor id={'nail'}>
-            <SectionOrder />
+            <SectionOrder  saveFreeSlots = {this.saveFreeSlots}/>
           </ScrollableAnchor>
           <ScrollableAnchor id={'personal'}>
             <SectionPersonalInfo freeSlots = {this.state.freeSlots} freeDays = {this.state.freeDays}/>
