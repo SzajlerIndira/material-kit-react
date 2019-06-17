@@ -42,15 +42,16 @@ class Components extends React.Component {
       this.state={
 
         freeSlots: {},
-        freeDays:["sunday", "monday", "tuesday" ]
+        freeDays:[]
       }
       this.saveFreeSlots = this.saveFreeSlots.bind(this);
   }
 
   saveFreeSlots=(slots) => {
-    // let freeSlots = {...this.state.freeSlots};
     this.setState({freeSlots: slots});
-    console.log(this.state.freeSlots)
+    for(let key in slots){
+      this.state.freeDays.push(key);
+    }
   }
 
   render() {
@@ -95,25 +96,25 @@ class Components extends React.Component {
           </ScrollableAnchor>
           <SectionCalendar/>
 
-          <SectionBasics />
-          <SectionNavbars />
-          <SectionTabs />
-          <SectionPills />
-          <SectionNotifications />
-          <SectionTypography />
-          <SectionJavascript />
-          <SectionCarousel />
-          <SectionCompletedExamples />
-          <SectionLogin />
-          <GridItem md={12} className={classes.textCenter}>
-            <Link to={"/login-page"} className={classes.link}>
-              <Button color="primary" size="lg" simple>
-                View Login Page
-              </Button>
-            </Link>
-          </GridItem>
-          <SectionExamples />
-          <SectionDownload />
+          {/*<SectionBasics />*/}
+          {/*<SectionNavbars />*/}
+          {/*<SectionTabs />*/}
+          {/*<SectionPills />*/}
+          {/*<SectionNotifications />*/}
+          {/*<SectionTypography />*/}
+          {/*<SectionJavascript />*/}
+          {/*<SectionCarousel />*/}
+          {/*<SectionCompletedExamples />*/}
+          {/*<SectionLogin />*/}
+          {/*<GridItem md={12} className={classes.textCenter}>*/}
+            {/*<Link to={"/login-page"} className={classes.link}>*/}
+              {/*<Button color="primary" size="lg" simple>*/}
+                {/*View Login Page*/}
+              {/*</Button>*/}
+            {/*</Link>*/}
+          {/*</GridItem>*/}
+          {/*<SectionExamples />*/}
+          {/*<SectionDownload />*/}
         </div>
         <Footer />
       </div>
