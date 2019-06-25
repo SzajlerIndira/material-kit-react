@@ -18,7 +18,7 @@ import CustomInput from "components/CustomInput/CustomInput.jsx";
 
 import loginStyle from "assets/jss/material-kit-react/views/componentsSections/loginStyle.jsx";
 import CustomDropdown from "components/CustomDropdown/CustomDropdown.jsx";
-
+import SectionWarningNotification from "views/Components/Sections/SectionWarningNotification.jsx";
 
 class SectionPersonalInfo extends React.Component {
     constructor(props) {
@@ -29,6 +29,7 @@ class SectionPersonalInfo extends React.Component {
             phone : " ",
             selectedDay:' ',
             selectedHour:' ',
+            isWarning: false,
         };
         this.handleChangeUserInput = this.handleChangeUserInput.bind(this);
         this.handleClickDay = this.handleClickDay.bind(this);
@@ -75,12 +76,32 @@ class SectionPersonalInfo extends React.Component {
             .then(response => console.log('Success:', response))
             .catch(error => console.error('Error:', error));
     }
+    handleError = e => {
+        this.state.isWarning = false;
+        if (this.state.name ==" "||this.state.mail== " " || this.state.phone==" " || this.state.selectedDay == " "
+            || this.state.selectedHour == " ") {
+            this.setState({isWarning: true});
+        }else {
+            this.handleSubmit();
+        }
+    }
+    renderAlert(){
+        return(
+            <div>
+                <SectionWarningNotification/>
+            </div>
+        );
+    }
 
     render() {
         const { classes } = this.props;
         let hoursPerDay;
-        if(this.state.selectedDay!=" "){
+        if(this.state.selectedDay!==" "){
             hoursPerDay = this.renderHours();
+        }
+        let warning;
+        if(this.state.isWarning) {
+            warning = this.renderAlert();
         }
         return (
             <div className={classes.section}>
@@ -93,6 +114,7 @@ class SectionPersonalInfo extends React.Component {
                                         <h4>Személyes Adatok</h4>
                                     </CardHeader>
                                     <p className={classes.divider}>Kérlek, a foglaláshoz add meg az alábbi adatokat!</p>
+                                    {warning}
                                     <CardBody>
                                         <CustomInput
                                             labelText="Név..."
@@ -165,7 +187,7 @@ class SectionPersonalInfo extends React.Component {
                                         </div>
                                     </CardBody>
                                     <CardFooter className={classes.cardFooter}>
-                                        <Button label="submit" simple color="primary" size="lg" onClick={(event) =>  this.handleSubmit(event)}>
+                                        <Button label="submit" simple color="primary" size="lg" onClick={(event) =>  this.handleError(event)}>
                                             Időpont mentése
                                         </Button>
                                     </CardFooter>

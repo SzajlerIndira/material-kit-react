@@ -37,8 +37,7 @@ class SectionOrder extends React.Component {
     handleError(event){
         this.state.isWarning = false;
         if (this.state.nailType ==" "||this.state.shape== " " || this.state.decoration==" " ) {
-            this.state.isWarning = true;
-            // alert("Kérlek, adj meg minden paramétert!");
+            this.setState({isWarning: true})
         }else {
             this.handleClick();
         }
