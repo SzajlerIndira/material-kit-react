@@ -23,7 +23,7 @@ class SectionQuestionnaire extends React.Component {
         super(props);
         this.state = {
             basicNail: ["Natúr köröm", " Géllakk van a körmön", "Műköröm van a körmön", "Egy köröm javítása"],
-            naturNailOptions: ["Géllakk ", "Géllakk megerősítéssel", "Műköröm 'S' méret", "Műköröm 'M' méret",
+            naturalNailOptions: ["Géllakk ", "Géllakk megerősítéssel", "Műköröm 'S' méret", "Műköröm 'M' méret",
                 "Műköröm 'L' méret"],
             gelLackOptions: ["Géllakk eltávolítása manikűrrel", "Géllakkcsere", "Megerősített géllakkcsere",
                 "Géllakk eltávolítás majd építés 'S' méret", "Géllakk eltávolítás majd építés 'M' méret",
@@ -33,17 +33,37 @@ class SectionQuestionnaire extends React.Component {
                 "Töltés 'S' méret", "Töltés 'M' méret", "Töltés 'L' méret"],
             decoration: ["Transzferfólia/cukorpor", "Effekt porok", "Inda minta", "Festett/ 3D virágok", "Kövek", "Komplex Diszítés",
                 "Realisztikus festés (Állat/Portré stb...", "Nincs díszítés"],
-            selectedHour: ' ',
+            selectedNail: ' ',
             isWarning: false,
         };
+        this.handleClickNailType = this.handleClickNailType.bind(this);
+    }
+
+    handleClickNailType( value) {
+        this.setState({selectedNail: value});
+    }
+    renderNaturalNail(){
+        const { classes } = this.props;
+        return (
+            <CustomDropdown
+                // onClick={this.handleClickDay.bind(this)}
+                buttonText="Milyen körmöt szeretnél natúr körömre"
+                buttonProps={{
+                    className: classes.navLink,
+                    // color: "rose"
+                }}
+                dropdownList={this.state.naturalNailOptions}
+
+            />
+        );
     }
 
     render() {
         const {classes} = this.props;
-        // let hoursPerDay;
-        // if (this.state.selectedDay !== " ") {
-        //     hoursPerDay = this.renderHours();
-        // }
+        let naturalNail;
+        if (this.state.selectedNail == "Natúr köröm") {
+            naturalNail= this.renderNaturalNail();
+        }
         // let warning;
         // if (this.state.isWarning) {
         //     warning = this.renderAlert();
@@ -62,7 +82,7 @@ class SectionQuestionnaire extends React.Component {
                             </div>
                             <div>
                                 <CustomDropdown
-                                    // onClick={this.handleClickDay.bind(this)}
+                                    onClick={this.handleClickNailType}
                                                 buttonText="Köröm állapota"
                                                 buttonProps={{
                                                     className: classes.navLink,
@@ -73,16 +93,7 @@ class SectionQuestionnaire extends React.Component {
                                 />
                             </div>
                             <div>
-                                <CustomDropdown
-                                    // onClick={this.handleClickDay.bind(this)}
-                                    buttonText="Milyen körmöt szeretnél natúr körömre"
-                                    buttonProps={{
-                                        className: classes.navLink,
-                                        // color: "rose"
-                                    }}
-                                    dropdownList={this.state.naturNailOptions}
-
-                                />
+                                {naturalNail}
                             </div>
                             <div>
                                 <CustomDropdown
@@ -119,9 +130,6 @@ class SectionQuestionnaire extends React.Component {
                                     dropdownList={this.state.decoration}
 
                                 />
-                            </div>
-                            <div>
-                                {/*{hoursPerDay}*/}
                             </div>
                             <div id="buttons">
                                 <Button id="submitbutton" label="submit" color="rose" round
