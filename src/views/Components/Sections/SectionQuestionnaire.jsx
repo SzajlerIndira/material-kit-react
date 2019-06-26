@@ -34,13 +34,19 @@ class SectionQuestionnaire extends React.Component {
             decoration: ["Transzferfólia/cukorpor", "Effekt porok", "Inda minta", "Festett/ 3D virágok", "Kövek", "Komplex Diszítés",
                 "Realisztikus festés (Állat/Portré stb...", "Nincs díszítés"],
             selectedNail: ' ',
+            selectedNAilStyle: ' ',
+            selectedDecor: ' ',
             isWarning: false,
         };
         this.handleClickNailType = this.handleClickNailType.bind(this);
+        this.handleClickDecor = this.handleClickDecor.bind(this);
     }
 
     handleClickNailType( value) {
         this.setState({selectedNail: value});
+    }
+    handleClickDecor( value) {
+        this.setState({selectedDecor: value});
     }
     renderNaturalNail(){
         const { classes } = this.props;
@@ -83,7 +89,6 @@ class SectionQuestionnaire extends React.Component {
                     // color: "rose"
                 }}
                 dropdownList={this.state.artificialOptions}
-
             />
         );
     }
@@ -110,11 +115,11 @@ class SectionQuestionnaire extends React.Component {
                         <br></br>
                         <h3>A szükséges idő kalkulálásához kérlek, add meg az alábbi paramétereket!</h3>
                     </div>
+                    <div className={classes.title}>
+                        <h3>Választásod: {this.state.selectedNail} {this.state.selectedDecor}</h3>
+                    </div>
                     <GridContainer>
                         <GridItem xs={12} sm={6} md={4} lg={3}>
-                            <div className={classes.title}>
-                                <h3></h3>
-                            </div>
                             <div>
                                 <CustomDropdown
                                     onClick={this.handleClickNailType}
@@ -132,7 +137,7 @@ class SectionQuestionnaire extends React.Component {
                             </div>
                             <div>
                                 <CustomDropdown
-                                    // onClick={this.handleClickDay.bind(this)}
+                                    onClick={this.handleClickDecor}
                                     buttonText="Díszítés"
                                     buttonProps={{
                                         className: classes.navLink,
