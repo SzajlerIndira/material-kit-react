@@ -34,12 +34,13 @@ class SectionQuestionnaire extends React.Component {
             decoration: ["Transzferfólia/cukorpor", "Effekt porok", "Inda minta", "Festett/ 3D virágok", "Kövek", "Komplex Diszítés",
                 "Realisztikus festés (Állat/Portré stb...", "Nincs díszítés"],
             selectedNail: ' ',
-            selectedNAilStyle: ' ',
+            selectedNailStyle: ' ',
             selectedDecor: ' ',
             isWarning: false,
         };
         this.handleClickNailType = this.handleClickNailType.bind(this);
         this.handleClickDecor = this.handleClickDecor.bind(this);
+        this.handleClickNailStyle = this.handleClickNailStyle.bind(this);
     }
 
     handleClickNailType( value) {
@@ -48,11 +49,14 @@ class SectionQuestionnaire extends React.Component {
     handleClickDecor( value) {
         this.setState({selectedDecor: value});
     }
+    handleClickNailStyle (value){
+        this.setState({selectedNailStyle: value});
+    }
     renderNaturalNail(){
         const { classes } = this.props;
         return (
             <CustomDropdown
-                // onClick={this.handleClickDay.bind(this)}
+                onClick={this.handleClickNailStyle}
                 buttonText="Milyen körmöt szeretnél natúr körömre"
                 buttonProps={{
                     className: classes.navLink,
@@ -67,7 +71,7 @@ class SectionQuestionnaire extends React.Component {
         const { classes } = this.props;
         return (
             <CustomDropdown
-                // onClick={this.handleClickDay.bind(this)}
+                onClick={this.handleClickNailStyle}
                 buttonText="Milyen körmöt szeretnél géllakk esetén"
                 buttonProps={{
                     className: classes.navLink,
@@ -82,7 +86,7 @@ class SectionQuestionnaire extends React.Component {
         const { classes } = this.props;
         return (
             <CustomDropdown
-                // onClick={this.handleClickDay.bind(this)}
+                onClick={this.handleClickNailStyle}
                 buttonText="Milyen körmöt szeretnél műköröm esetén"
                 buttonProps={{
                     className: classes.navLink,
@@ -116,7 +120,7 @@ class SectionQuestionnaire extends React.Component {
                         <h3>A szükséges idő kalkulálásához kérlek, add meg az alábbi paramétereket!</h3>
                     </div>
                     <div className={classes.title}>
-                        <h3>Választásod: {this.state.selectedNail} {this.state.selectedDecor}</h3>
+                        <h3>Választásod: {this.state.selectedNail} {this.state.selectedNailStyle} {this.state.selectedDecor}</h3>
                     </div>
                     <GridContainer>
                         <GridItem xs={12} sm={6} md={4} lg={3}>
