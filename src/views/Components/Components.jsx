@@ -35,6 +35,7 @@ import SectionCalendar from "./Sections/SectionCalendar";
 
 import ScrollableAnchor from 'react-scrollable-anchor'
 import componentsStyle from "assets/jss/material-kit-react/views/components.jsx";
+import SectionQuestionnaire from "./Sections/SectionQuestionnaire";
 
 class Components extends React.Component {
   constructor(props){
@@ -88,13 +89,16 @@ class Components extends React.Component {
 
         <div className={classNames(classes.main, classes.mainRaised)}>
 
+          <SectionQuestionnaire/>
           <ScrollableAnchor id={'nail'}>
             <SectionOrder  saveFreeSlots = {this.saveFreeSlots}/>
           </ScrollableAnchor>
+
           <ScrollableAnchor id={'personal'}>
             <SectionPersonalInfo freeSlots = {this.state.freeSlots} freeDays = {this.state.freeDays}/>
           </ScrollableAnchor>
-          <SectionCalendar/>
+
+          {/*<SectionCalendar/>*/}
 
           {/*<SectionBasics />*/}
           {/*<SectionNavbars />*/}
