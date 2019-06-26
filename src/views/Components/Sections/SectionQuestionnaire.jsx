@@ -22,10 +22,10 @@ class SectionQuestionnaire extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            basicNail: ["Natúr köröm", " Géllakk van a körmön", "Műköröm van a körmön", "Egy köröm javítása"],
+            basicNail: ["Natúr köröm", "Géllakk van a körmön", "Műköröm van a körmön", "Egy köröm javítása"],
             naturalNailOptions: ["Géllakk ", "Géllakk megerősítéssel", "Műköröm 'S' méret", "Műköröm 'M' méret",
                 "Műköröm 'L' méret"],
-            gelLackOptions: ["Géllakk eltávolítása manikűrrel", "Géllakkcsere", "Megerősített géllakkcsere",
+            gelLacOptions: ["Géllakk eltávolítása manikűrrel", "Géllakkcsere", "Megerősített géllakkcsere",
                 "Géllakk eltávolítás majd építés 'S' méret", "Géllakk eltávolítás majd építés 'M' méret",
                 "Géllakk eltávolítás majd építés 'L' méret"],
             artificialOptions: ["Műköröm eltávoltítása manikűrrel",
@@ -57,12 +57,30 @@ class SectionQuestionnaire extends React.Component {
             />
         );
     }
+    renderGelNail(){
+        const { classes } = this.props;
+        return (
+            <CustomDropdown
+                // onClick={this.handleClickDay.bind(this)}
+                buttonText="Milyen körmöt szeretnél géllakk esetén"
+                buttonProps={{
+                    className: classes.navLink,
+                    // color: "rose"
+                }}
+                dropdownList={this.state.gelLacOptions}
+
+            />
+        );
+    }
+
 
     render() {
         const {classes} = this.props;
         let naturalNail;
         if (this.state.selectedNail == "Natúr köröm") {
             naturalNail= this.renderNaturalNail();
+        }else if(this.state.selectedNail == "Géllakk van a körmön"){
+            naturalNail = this.renderGelNail();
         }
         // let warning;
         // if (this.state.isWarning) {
@@ -94,18 +112,6 @@ class SectionQuestionnaire extends React.Component {
                             </div>
                             <div>
                                 {naturalNail}
-                            </div>
-                            <div>
-                                <CustomDropdown
-                                    // onClick={this.handleClickDay.bind(this)}
-                                    buttonText="Milyen körmöt szeretnél géllakk esetén"
-                                    buttonProps={{
-                                        className: classes.navLink,
-                                        // color: "rose"
-                                    }}
-                                    dropdownList={this.state.gelLackOptions}
-
-                                />
                             </div>
                             <div>
                                 <CustomDropdown
