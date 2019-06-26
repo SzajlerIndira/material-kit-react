@@ -72,6 +72,21 @@ class SectionQuestionnaire extends React.Component {
             />
         );
     }
+    renderArtificialNail(){
+        const { classes } = this.props;
+        return (
+            <CustomDropdown
+                // onClick={this.handleClickDay.bind(this)}
+                buttonText="Milyen körmöt szeretnél műköröm esetén"
+                buttonProps={{
+                    className: classes.navLink,
+                    // color: "rose"
+                }}
+                dropdownList={this.state.artificialOptions}
+
+            />
+        );
+    }
 
 
     render() {
@@ -81,6 +96,8 @@ class SectionQuestionnaire extends React.Component {
             naturalNail= this.renderNaturalNail();
         }else if(this.state.selectedNail == "Géllakk van a körmön"){
             naturalNail = this.renderGelNail();
+        }else if(this.state.selectedNail == "Műköröm van a körmön"){
+            naturalNail = this.renderArtificialNail();
         }
         // let warning;
         // if (this.state.isWarning) {
@@ -112,18 +129,6 @@ class SectionQuestionnaire extends React.Component {
                             </div>
                             <div>
                                 {naturalNail}
-                            </div>
-                            <div>
-                                <CustomDropdown
-                                    // onClick={this.handleClickDay.bind(this)}
-                                    buttonText="Milyen körmöt szeretnél műköröm esetén"
-                                    buttonProps={{
-                                        className: classes.navLink,
-                                        // color: "rose"
-                                    }}
-                                    dropdownList={this.state.artificialOptions}
-
-                                />
                             </div>
                             <div>
                                 <CustomDropdown
