@@ -22,21 +22,23 @@ class SectionQuestionnaire extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            basicNail: ["Natúr köröm", "Géllakk van a körmön", "Műköröm van a körmön", "Egy köröm javítása"],
-            naturalNailOptions: ["Géllakk ", "Géllakk megerősítéssel", "Műköröm 'S' méret", "Műköröm 'M' méret",
+            basicNail: ["Natúr köröm", "Géllakk van a körmön", "Műköröm van a körmön"],
+            naturalNailOptions: ["Géllakk", "Géllakk megerősítéssel", "Műköröm 'S' méret", "Műköröm 'M' méret",
                 "Műköröm 'L' méret"],
             gelLacOptions: ["Géllakk eltávolítása manikűrrel", "Géllakkcsere", "Megerősített géllakkcsere",
                 "Géllakk eltávolítás majd építés 'S' méret", "Géllakk eltávolítás majd építés 'M' méret",
-                "Géllakk eltávolítás majd építés 'L' méret"],
+                "Géllakk eltávolítás majd építés 'L' méret", "Egy köröm javítása"],
             artificialOptions: ["Műköröm eltávoltítása manikűrrel",
                 "Műköröm eltávolítás, majd géllakk építés",
-                "Töltés 'S' méret", "Töltés 'M' méret", "Töltés 'L' méret"],
-            decoration: ["Transzferfólia/cukorpor", "Effekt porok", "Inda minta", "Festett/ 3D virágok", "Kövek", "Komplex Diszítés",
-                "Realisztikus festés (Állat/Portré stb...", "Nincs díszítés"],
+                "Töltés 'S' méret", "Töltés 'M' méret", "Töltés 'L' méret", "Egy köröm javítása"],
+            decoration: ["Transzferfólia/cukorpor", "Effekt porok", "Inda minta", "Festett/ 3D virágok", "Kövek", "Komplex Díszítés",
+                "Realisztikus festés (Állat/Portré stb...)", "Nincs díszítés"],
             selectedNail: ' ',
             selectedNailStyle: ' ',
             selectedDecor: ' ',
+            href: "#nail",
             isWarning: false,
+            freeSlots:{},
         };
         this.handleClickNailType = this.handleClickNailType.bind(this);
         this.handleClickDecor = this.handleClickDecor.bind(this);
@@ -96,7 +98,63 @@ class SectionQuestionnaire extends React.Component {
             />
         );
     }
+    renderDecor(){
+        const { classes } = this.props;
+        return (
+            <CustomDropdown
+                onClick={this.handleClickDecor}
+                buttonText="Díszítés"
+                buttonProps={{
+                    className: classes.navLink,
+                    // color: "rose"
+                }}
+                dropdownList={this.state.decoration}
 
+            />
+        );
+    }
+    saveFreeSlots(){
+        this.props.saveFreeSlots(this.state.freeSlots);
+    }
+    handleError(event){
+        this.state.isWarning = false;
+        if (this.state.selectedNail ==" " && this.state.selectedNailStyle ==" " && this.state.selectedDecor == " ") {
+            this.setState({isWarning: true})
+        }else {
+            this.handleClick();
+        }
+    }
+    handleClick(event){
+
+        const payload = JSON.stringify({
+            nailStyle: this.state.selectedNailStyle,
+            decoration: this.state.selectedDecor
+        });
+
+        fetch('http://localhost:8080', {
+            method: 'POST', // or 'PUT'
+            mode: 'cors',
+            body: payload, // data can be `string` or {object}!
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => response.json())
+            .then(response =>  this.setState({
+                freeSlots:response
+            },this.saveFreeSlots))
+            .then(response => console.log('Success:',response, this.state.freeSlots))
+            .catch(error => console.error('Error:', error))
+
+        this.setState({"href": '#personal'});
+    }
+    renderAlert(){
+        return(
+            <div>
+                <SectionWarningNotification/>
+            </div>
+        );
+    }
 
     render() {
         const {classes} = this.props;
@@ -108,10 +166,15 @@ class SectionQuestionnaire extends React.Component {
         }else if(this.state.selectedNail == "Műköröm van a körmön"){
             naturalNail = this.renderArtificialNail();
         }
-        // let warning;
-        // if (this.state.isWarning) {
-        //     warning = this.renderAlert();
-        // }
+        let decor;
+        if(this.state.selectedNail != " " && this.state.selectedNailStyle != " "){
+            decor = this.renderDecor();
+        }
+
+        let warning;
+        if (this.state.isWarning) {
+            warning = this.renderAlert();
+        }
         return (
             <div className={classes.sections}>
                 <div className={classes.container}>
@@ -119,50 +182,41 @@ class SectionQuestionnaire extends React.Component {
                         <br></br>
                         <h3>A szükséges idő kalkulálásához kérlek, add meg az alábbi paramétereket!</h3>
                     </div>
-                    <div className={classes.title}>
-                        <h3>Választásod: {this.state.selectedNail} {this.state.selectedNailStyle} {this.state.selectedDecor}</h3>
-                    </div>
+
                     <GridContainer>
                         <GridItem xs={12} sm={6} md={4} lg={3}>
                             <div>
                                 <CustomDropdown
                                     onClick={this.handleClickNailType}
-                                                buttonText="Köröm állapota"
+                                                buttonText= "Köröm állapota"
                                                 buttonProps={{
                                                     className: classes.navLink,
                                                     // color: "rose"
                                                 }}
                                                 dropdownList={this.state.basicNail}
-
                                 />
                             </div>
                             <div>
                                 {naturalNail}
                             </div>
                             <div>
-                                <CustomDropdown
-                                    onClick={this.handleClickDecor}
-                                    buttonText="Díszítés"
-                                    buttonProps={{
-                                        className: classes.navLink,
-                                        // color: "rose"
-                                    }}
-                                    dropdownList={this.state.decoration}
-
-                                />
-                            </div>
-                            <div id="buttons">
-                                <Button id="submitbutton" label="submit" color="rose" round
-                                        // onClick={(event) => this.handleError(event)}
-                                        // href={this.state.href}
-                                    >
-                                    Időpont foglalás</Button>
-                            </div>
-                            <div>
-                            {/*{warning}*/}
+                                {decor}
                             </div>
                         </GridItem>
                     </GridContainer>
+                    <div className={classes.title}>
+                        <h3>Választásod: {this.state.selectedNail} {this.state.selectedNailStyle} {this.state.selectedDecor}</h3>
+                    </div>
+                    <div id="buttons">
+                        <Button id="submitbutton" label="submit" color="rose" round
+                                onClick={(event) => this.handleError(event)}
+                                href={this.state.href}
+                            >
+                            Időpont foglalás</Button>
+                    </div>
+                    <div>
+                        {warning}
+                    </div>
                 </div>
             </div>
         );

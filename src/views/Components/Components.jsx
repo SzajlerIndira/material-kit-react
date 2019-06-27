@@ -89,11 +89,10 @@ class Components extends React.Component {
 
         <div className={classNames(classes.main, classes.mainRaised)}>
 
-          <SectionQuestionnaire/>
           <ScrollableAnchor id={'nail'}>
-            <SectionOrder  saveFreeSlots = {this.saveFreeSlots}/>
+          <SectionQuestionnaire saveFreeSlots = {this.saveFreeSlots}/>
           </ScrollableAnchor>
-
+            {/*<SectionOrder  saveFreeSlots = {this.saveFreeSlots}/>*/}
           <ScrollableAnchor id={'personal'}>
             <SectionPersonalInfo freeSlots = {this.state.freeSlots} freeDays = {this.state.freeDays}/>
           </ScrollableAnchor>
