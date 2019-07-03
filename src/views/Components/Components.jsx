@@ -79,7 +79,7 @@ class Components extends React.Component {
                   <h1 className={classes.title}>Maca Nails</h1>
                   <h3 className={classes.subtitle}>
                     Időpontfoglaláshoz görgess lejjebb.<br></br>
-                    Munkáimat a galériában találhatod.
+                    Munkáimat a <a  href = "/gallery" target="_blank">galériában</a> találhatod.
                   </h3>
                 </div>
               </GridItem>
@@ -106,7 +106,6 @@ class Components extends React.Component {
           {/*<SectionNotifications />*/}
           {/*<SectionTypography />*/}
           {/*<SectionJavascript />*/}
-          {/*<SectionCarousel />*/}
           {/*<SectionCompletedExamples />*/}
           {/*<SectionLogin />*/}
           {/*<GridItem md={12} className={classes.textCenter}>*/}

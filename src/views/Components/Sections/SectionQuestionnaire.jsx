@@ -5,12 +5,8 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 // core components
 import GridContainer from "components/Grid/GridContainer.jsx";
 import GridItem from "components/Grid/GridItem.jsx";
-import Card from "components/Card/Card.jsx";
-import CardHeader from "components/Card/CardHeader.jsx";
-import CardBody from "components/Card/CardBody.jsx";
-import CardFooter from "components/Card/CardFooter.jsx";
 import Button from "components/CustomButtons/Button.jsx";
-import CustomInput from "components/CustomInput/CustomInput.jsx";
+
 
 import loginStyle from "assets/jss/material-kit-react/views/componentsSections/loginStyle.jsx";
 import CustomDropdown from "components/CustomDropdown/CustomDropdown.jsx";
@@ -118,7 +114,7 @@ class SectionQuestionnaire extends React.Component {
     }
     handleError(event){
         this.state.isWarning = false;
-        if (this.state.selectedNail ==" " && this.state.selectedNailStyle ==" " && this.state.selectedDecor == " ") {
+        if (this.state.selectedNail ==' ' || this.state.selectedNailStyle ==' ' || this.state.selectedDecor == ' ') {
             this.setState({isWarning: true})
         }else {
             this.handleClick();
@@ -159,15 +155,15 @@ class SectionQuestionnaire extends React.Component {
     render() {
         const {classes} = this.props;
         let naturalNail;
-        if (this.state.selectedNail == "Natúr köröm") {
+        if (this.state.selectedNail === "Natúr köröm") {
             naturalNail= this.renderNaturalNail();
-        }else if(this.state.selectedNail == "Géllakk van a körmön"){
+        }else if(this.state.selectedNail ==="Géllakk van a körmön"){
             naturalNail = this.renderGelNail();
-        }else if(this.state.selectedNail == "Műköröm van a körmön"){
+        }else if(this.state.selectedNail === "Műköröm van a körmön"){
             naturalNail = this.renderArtificialNail();
         }
         let decor;
-        if(this.state.selectedNail != " " && this.state.selectedNailStyle != " "){
+        if(this.state.selectedNail !== " " && this.state.selectedNailStyle !== " "){
             decor = this.renderDecor();
         }
 
@@ -204,9 +200,9 @@ class SectionQuestionnaire extends React.Component {
                             </div>
                         </GridItem>
                     </GridContainer>
-                    <div className={classes.title}>
-                        <h3>Választásod: {this.state.selectedNail} {this.state.selectedNailStyle} {this.state.selectedDecor}</h3>
-                    </div>
+                    {/*/<div className={classes.title}>*/}
+                        {/*<h3>Választásod: {this.state.selectedNail} {this.state.selectedNailStyle} {this.state.selectedDecor}</h3>*/}
+                    {/*</div>*/}
                     <div id="buttons">
                         <Button id="submitbutton" label="submit" color="rose" round
                                 onClick={(event) => this.handleError(event)}
