@@ -30,6 +30,8 @@ class SectionPersonalInfo extends React.Component {
             selectedDay:' ',
             selectedHour:' ',
             isWarning: false,
+            hours: [],
+
         };
         this.handleChangeUserInput = this.handleChangeUserInput.bind(this);
         this.handleClickDay = this.handleClickDay.bind(this);
@@ -48,6 +50,12 @@ class SectionPersonalInfo extends React.Component {
     }
     renderHours(){
         const { classes } = this.props;
+        let day =this.props.freeSlots[this.state.selectedDay];
+        let hours = [];
+        for (let key in day) {
+            hours.push(day[key]["startHour"]);
+        }
+        this.state.hours=hours;
         return (
         <CustomDropdown onClick={this.handleClickHour.bind(this)}
                         buttonText="Választható órák:"
@@ -55,7 +63,7 @@ class SectionPersonalInfo extends React.Component {
                             className: classes.navLink,
                             color: "rose"
                         }}
-                        dropdownList={this.props.freeSlots[this.state.selectedDay]}
+                        dropdownList={this.state.hours}
         />);
     }
 
