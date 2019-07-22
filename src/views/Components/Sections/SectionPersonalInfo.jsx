@@ -28,7 +28,7 @@ class SectionPersonalInfo extends React.Component {
             mail : " ",
             phone : " ",
             selectedDay:' ',
-            selectedHour:' ',
+            selectedSlot:' ',
             isWarning: false,
             hours: [],
 
@@ -40,10 +40,19 @@ class SectionPersonalInfo extends React.Component {
     }
     handleChangeUserInput = (event) => {
         console.log(event.target.value);
+
         this.setState({ [event.target.name] : event.target.value });
     }
     handleClickHour( value) {
-        this.setState({selectedHour : value });
+        let day =this.props.freeSlots[this.state.selectedDay];
+        for(let key in day) {
+            if (day[key]["startHour"]===value) {
+                this.state.selectedSlot = day[key];
+            }
+
+        }
+
+
     }
     handleClickDay( value){
         this.setState({selectedDay : value });
@@ -69,7 +78,7 @@ class SectionPersonalInfo extends React.Component {
 
      handleSubmit(event) {
         const payload =JSON.stringify({"name": this.state.name, "mail": this.state.mail, "phone": this.state.phone,
-        "selectedDay":this.state.selectedDay, "selectedHour": this.state.selectedHour});
+        "selectedSlot": this.state.selectedSlot});
         console.log(payload);
 
         fetch('http://localhost:8080/personal', {
@@ -87,7 +96,7 @@ class SectionPersonalInfo extends React.Component {
     handleError = e => {
         this.state.isWarning = false;
         if (this.state.name ==" "||this.state.mail== " " || this.state.phone==" " || this.state.selectedDay == " "
-            || this.state.selectedHour == " ") {
+            || this.state.selectedSlot == " ") {
             this.setState({isWarning: true});
         }else {
             this.handleSubmit();
