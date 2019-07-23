@@ -53,6 +53,7 @@ class Components extends React.Component {
     for(let key in slots){
       this.state.freeDays.push(key);
     }
+    this.state.freeDays.sort();
   }
 
   render() {
