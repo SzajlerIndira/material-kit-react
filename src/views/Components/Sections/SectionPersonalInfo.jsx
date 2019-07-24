@@ -33,7 +33,7 @@ class SectionPersonalInfo extends React.Component {
             hours: [],
             buttonTextDays:'Választható napok:',
             buttonTextHours:'Választható órák:',
-
+            neededTime:' ',
         };
         this.handleChangeUserInput = this.handleChangeUserInput.bind(this);
         this.handleClickDay = this.handleClickDay.bind(this);
@@ -56,6 +56,21 @@ class SectionPersonalInfo extends React.Component {
         this.setState({selectedDay : value });
         this.setState({buttonTextDays: value});
     }
+    renderNeededTime(){
+        let day =this.props.freeSlots[this.state.selectedDay];
+        for(let key in day) {
+            if(this.state.neededTime == ' ') {
+                this.state.neededTime = day[key]["neededTime"]
+                break;
+            }
+        }
+        return(
+            <div>
+                <p>A köröm elkészítése {this.state.neededTime} órát vesz igénybe.</p>
+            </div>
+        );
+    }
+
     renderHours(){
         const { classes } = this.props;
         let day =this.props.freeSlots[this.state.selectedDay];
@@ -111,8 +126,10 @@ class SectionPersonalInfo extends React.Component {
     render() {
         const { classes } = this.props;
         let hoursPerDay;
+        let neededTime;
         if(this.state.selectedDay!==" "){
             hoursPerDay = this.renderHours();
+            neededTime = this.renderNeededTime();
         }
         let warning;
         if(this.state.isWarning) {
@@ -186,6 +203,7 @@ class SectionPersonalInfo extends React.Component {
                                                 )
                                             }}
                                         />
+
                                         <div>
                                             <CustomDropdown onClick={this.handleClickDay.bind(this)}
                                                 buttonText={this.state.buttonTextDays}
@@ -199,6 +217,9 @@ class SectionPersonalInfo extends React.Component {
                                      </div>
                                         <div>
                                             {hoursPerDay}
+                                        </div>
+                                        <div>
+                                            {neededTime}
                                         </div>
                                     </CardBody>
                                     <CardFooter className={classes.cardFooter}>
