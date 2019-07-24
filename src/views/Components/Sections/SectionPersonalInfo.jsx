@@ -31,6 +31,8 @@ class SectionPersonalInfo extends React.Component {
             selectedSlot:' ',
             isWarning: false,
             hours: [],
+            buttonTextDays:'Választható napok:',
+            buttonTextHours:'Választható órák:',
 
         };
         this.handleChangeUserInput = this.handleChangeUserInput.bind(this);
@@ -39,8 +41,6 @@ class SectionPersonalInfo extends React.Component {
 
     }
     handleChangeUserInput = (event) => {
-        console.log(event.target.value);
-
         this.setState({ [event.target.name] : event.target.value });
     }
     handleClickHour( value) {
@@ -49,13 +49,12 @@ class SectionPersonalInfo extends React.Component {
             if (day[key]["startHour"]===value) {
                 this.state.selectedSlot = day[key];
             }
-
         }
-
-
+        this.setState({buttonTextHours:value});
     }
     handleClickDay( value){
         this.setState({selectedDay : value });
+        this.setState({buttonTextDays: value});
     }
     renderHours(){
         const { classes } = this.props;
@@ -67,7 +66,7 @@ class SectionPersonalInfo extends React.Component {
         this.state.hours=hours;
         return (
         <CustomDropdown onClick={this.handleClickHour.bind(this)}
-                        buttonText="Választható órák:"
+                        buttonText={this.state.buttonTextHours}
                         buttonProps={{
                             className: classes.navLink,
                             color: "rose"
@@ -76,22 +75,22 @@ class SectionPersonalInfo extends React.Component {
         />);
     }
 
-     handleSubmit(event) {
-        const payload =JSON.stringify({"name": this.state.name, "mail": this.state.mail, "phone": this.state.phone,
-        "selectedSlot": this.state.selectedSlot});
-        console.log(payload);
+    handleSubmit(event) {
+    const payload =JSON.stringify({"name": this.state.name, "mail": this.state.mail, "phone": this.state.phone,
+    "selectedSlot": this.state.selectedSlot});
+    console.log(payload);
 
-        fetch('http://localhost:8080/personal', {
-            method: 'POST',
-            mode: 'cors',
-            body: payload,
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-            .then(response => response.json())
-            .then(response => console.log('Success:', response))
-            .catch(error => console.error('Error:', error));
+    fetch('http://localhost:8080/personal', {
+        method: 'POST',
+        mode: 'cors',
+        body: payload,
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(response => response.json())
+        .then(response => console.log('Success:', response))
+        .catch(error => console.error('Error:', error));
     }
     handleError = e => {
         this.state.isWarning = false;
@@ -109,7 +108,6 @@ class SectionPersonalInfo extends React.Component {
             </div>
         );
     }
-
     render() {
         const { classes } = this.props;
         let hoursPerDay;
@@ -190,7 +188,7 @@ class SectionPersonalInfo extends React.Component {
                                         />
                                         <div>
                                             <CustomDropdown onClick={this.handleClickDay.bind(this)}
-                                                buttonText="Választható napok:"
+                                                buttonText={this.state.buttonTextDays}
                                                 buttonProps={{
                                                     className: classes.navLink,
                                                     color: "rose"
