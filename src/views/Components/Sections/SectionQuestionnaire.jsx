@@ -35,6 +35,11 @@ class SectionQuestionnaire extends React.Component {
             href: "#nail",
             isWarning: false,
             freeSlots:{},
+            buttonTextNailType:'Köröm állapota',
+            buttonTextDecor:'Díszítés',
+            buttonTextNatural:'Milyen körmöt szeretnél natúr körömre',
+            buttonTextGel:'Milyen körmöt szeretnél géllakk esetén',
+            buttonTextArtificial:'Milyen körmöt szeretnél műköröm esetén',
         };
         this.handleClickNailType = this.handleClickNailType.bind(this);
         this.handleClickDecor = this.handleClickDecor.bind(this);
@@ -43,19 +48,31 @@ class SectionQuestionnaire extends React.Component {
 
     handleClickNailType( value) {
         this.setState({selectedNail: value});
+        this.setState({buttonTextNailType:value})
     }
     handleClickDecor( value) {
         this.setState({selectedDecor: value});
+        this.setState({buttonTextDecor:value})
     }
     handleClickNailStyle (value){
         this.setState({selectedNailStyle: value});
     }
+    handleOnchangeNatural(value){
+        this.setState({buttonTextNatural:value})
+    }
+    handleOnchangeGel(value){
+        this.setState({buttonTextGel:value})
+    }
+    handleOnchangeArtificial(value){
+        this.setState({buttonTextArtificial:value})
+    }
+
     renderNaturalNail(){
         const { classes } = this.props;
         return (
             <CustomDropdown
-                onClick={this.handleClickNailStyle}
-                buttonText="Milyen körmöt szeretnél natúr körömre"
+                onClick={(e) => {this.handleClickNailStyle(e); this.handleOnchangeNatural(e);}}
+                buttonText={this.state.buttonTextNatural}
                 buttonProps={{
                     className: classes.navLink,
                     // color: "rose"
@@ -69,8 +86,8 @@ class SectionQuestionnaire extends React.Component {
         const { classes } = this.props;
         return (
             <CustomDropdown
-                onClick={this.handleClickNailStyle}
-                buttonText="Milyen körmöt szeretnél géllakk esetén"
+                onClick={(e) => {this.handleClickNailStyle(e); this.handleOnchangeGel(e);}}
+                buttonText={this.state.buttonTextGel}
                 buttonProps={{
                     className: classes.navLink,
                     // color: "rose"
@@ -84,8 +101,8 @@ class SectionQuestionnaire extends React.Component {
         const { classes } = this.props;
         return (
             <CustomDropdown
-                onClick={this.handleClickNailStyle}
-                buttonText="Milyen körmöt szeretnél műköröm esetén"
+                onClick={(e) => {this.handleClickNailStyle(e); this.handleOnchangeArtificial(e);}}
+                buttonText={this.state.buttonTextArtificial}
                 buttonProps={{
                     className: classes.navLink,
                     // color: "rose"
@@ -99,7 +116,7 @@ class SectionQuestionnaire extends React.Component {
         return (
             <CustomDropdown
                 onClick={this.handleClickDecor}
-                buttonText="Díszítés"
+                buttonText={this.state.buttonTextDecor}
                 buttonProps={{
                     className: classes.navLink,
                     // color: "rose"
@@ -184,7 +201,7 @@ class SectionQuestionnaire extends React.Component {
                             <div>
                                 <CustomDropdown
                                     onClick={this.handleClickNailType}
-                                                buttonText= "Köröm állapota"
+                                                buttonText= {this.state.buttonTextNailType}
                                                 buttonProps={{
                                                     className: classes.navLink,
                                                     // color: "rose"
