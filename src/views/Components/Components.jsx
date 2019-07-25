@@ -35,6 +35,7 @@ import SectionCalendar from "./Sections/SectionCalendar";
 
 import ScrollableAnchor from 'react-scrollable-anchor'
 import componentsStyle from "assets/jss/material-kit-react/views/components.jsx";
+import SectionQuestionnaire from "./Sections/SectionQuestionnaire";
 
 class Components extends React.Component {
   constructor(props){
@@ -52,6 +53,7 @@ class Components extends React.Component {
     for(let key in slots){
       this.state.freeDays.push(key);
     }
+    this.state.freeDays.sort();
   }
 
   render() {
@@ -78,7 +80,7 @@ class Components extends React.Component {
                   <h1 className={classes.title}>Maca Nails</h1>
                   <h3 className={classes.subtitle}>
                     Időpontfoglaláshoz görgess lejjebb.<br></br>
-                    Munkáimat a galériában találhatod.
+                    Munkáimat a <a  href = "/gallery" target="_blank">galériában</a> találhatod.
                   </h3>
                 </div>
               </GridItem>
@@ -89,12 +91,14 @@ class Components extends React.Component {
         <div className={classNames(classes.main, classes.mainRaised)}>
 
           <ScrollableAnchor id={'nail'}>
-            <SectionOrder  saveFreeSlots = {this.saveFreeSlots}/>
+          <SectionQuestionnaire saveFreeSlots = {this.saveFreeSlots}/>
           </ScrollableAnchor>
+            {/*<SectionOrder  saveFreeSlots = {this.saveFreeSlots}/>*/}
           <ScrollableAnchor id={'personal'}>
             <SectionPersonalInfo freeSlots = {this.state.freeSlots} freeDays = {this.state.freeDays}/>
           </ScrollableAnchor>
-          <SectionCalendar/>
+
+          {/*<SectionCalendar/>*/}
 
           {/*<SectionBasics />*/}
           {/*<SectionNavbars />*/}
@@ -103,7 +107,6 @@ class Components extends React.Component {
           {/*<SectionNotifications />*/}
           {/*<SectionTypography />*/}
           {/*<SectionJavascript />*/}
-          {/*<SectionCarousel />*/}
           {/*<SectionCompletedExamples />*/}
           {/*<SectionLogin />*/}
           {/*<GridItem md={12} className={classes.textCenter}>*/}
