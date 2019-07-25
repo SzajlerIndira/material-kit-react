@@ -19,14 +19,15 @@ import CustomInput from "components/CustomInput/CustomInput.jsx";
 import loginStyle from "assets/jss/material-kit-react/views/componentsSections/loginStyle.jsx";
 import CustomDropdown from "components/CustomDropdown/CustomDropdown.jsx";
 import SectionWarningNotification from "views/Components/Sections/SectionWarningNotification.jsx";
+import SectionFailedBooking from "views/Components/Sections/SectionFailedBooking.jsx";
 
 class SectionPersonalInfo extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            name : " ",
-            mail : " ",
-            phone : " ",
+            name : "",
+            mail : "",
+            phone : "",
             selectedDay:' ',
             selectedSlot:' ',
             isWarning: false,
@@ -34,6 +35,7 @@ class SectionPersonalInfo extends React.Component {
             buttonTextDays:'Választható napok:',
             buttonTextHours:'Választható órák:',
             neededTime:' ',
+            isBookingFailed: false,
         };
         this.handleChangeUserInput = this.handleChangeUserInput.bind(this);
         this.handleClickDay = this.handleClickDay.bind(this);
@@ -104,13 +106,31 @@ class SectionPersonalInfo extends React.Component {
         }
     })
         .then(response => response.json())
+        .then(response => this.checkConfimation(response))
         .then(response => console.log('Success:', response))
         .catch(error => console.error('Error:', error));
     }
+
+    checkConfimation(response) {
+        console.log(response["status"]);
+        if (response["status"] === "fail"){
+            this.setState({isBookingFailed:true});
+            this.props.saveFreeSlots( response["slots"]);
+
+        }
+        // return undefined;
+    }
+
+    renderBookingFailed(){
+        return <div>
+            <SectionFailedBooking/>
+        </div>
+    }
+
     handleError = e => {
         this.state.isWarning = false;
-        if (this.state.name ==" "||this.state.mail== " " || this.state.phone==" " || this.state.selectedDay == " "
-            || this.state.selectedSlot == " ") {
+        if (this.state.name ==""||this.state.mail== "" || this.state.phone=="" || this.state.selectedDay == ""
+            || this.state.selectedSlot == "") {
             this.setState({isWarning: true});
         }else {
             this.handleSubmit();
@@ -134,6 +154,11 @@ class SectionPersonalInfo extends React.Component {
         let warning;
         if(this.state.isWarning) {
             warning = this.renderAlert();
+        }
+
+        let bookingFailed;
+        if (this.state.isBookingFailed) {
+          bookingFailed = this.renderBookingFailed();
         }
         return (
             <div className={classes.section}>
@@ -203,6 +228,9 @@ class SectionPersonalInfo extends React.Component {
                                                 )
                                             }}
                                         />
+                                        <div>
+                                            {bookingFailed}
+                                        </div>
 
                                         <div>
                                             <CustomDropdown onClick={this.handleClickDay.bind(this)}
@@ -226,6 +254,47 @@ class SectionPersonalInfo extends React.Component {
                                         <Button label="submit" simple color="primary" size="lg" onClick={(event) =>  this.handleError(event)}>
                                             Időpont mentése
                                         </Button>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                                     </CardFooter>
                                 </form>
                             </Card>
@@ -235,6 +304,7 @@ class SectionPersonalInfo extends React.Component {
             </div>
         );
     }
+
 }
 
 export default withStyles(loginStyle)(SectionPersonalInfo);

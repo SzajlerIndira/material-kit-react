@@ -50,6 +50,7 @@ class Components extends React.Component {
 
   saveFreeSlots=(slots) => {
     this.setState({freeSlots: slots});
+      this.state.freeDays=[];
     for(let key in slots){
       this.state.freeDays.push(key);
     }
@@ -95,7 +96,7 @@ class Components extends React.Component {
           </ScrollableAnchor>
             {/*<SectionOrder  saveFreeSlots = {this.saveFreeSlots}/>*/}
           <ScrollableAnchor id={'personal'}>
-            <SectionPersonalInfo freeSlots = {this.state.freeSlots} freeDays = {this.state.freeDays}/>
+            <SectionPersonalInfo freeSlots = {this.state.freeSlots} freeDays = {this.state.freeDays} saveFreeSlots = {this.saveFreeSlots}/>
           </ScrollableAnchor>
 
           {/*<SectionCalendar/>*/}
