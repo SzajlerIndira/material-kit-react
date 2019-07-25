@@ -93,7 +93,7 @@ class SectionPersonalInfo extends React.Component {
     }
 
     handleSubmit(event) {
-    const payload =JSON.stringify({"name": this.state.name, "mail": this.state.mail, "phone": this.state.phone,
+    const payload =JSON.stringify({"name": this.state.name, "email": this.state.mail, "phone": this.state.phone,
     "selectedSlot": this.state.selectedSlot});
     console.log(payload);
 
@@ -195,14 +195,14 @@ class SectionPersonalInfo extends React.Component {
                                         />
                                         <CustomInput
                                             labelText="Email..."
-                                            id="mail"
-                                            name="mail"
+                                            id="email"
+                                            name="email"
                                             formControlProps={{
                                                 fullWidth: true
                                             }}
                                             onChange={this.handleChangeUserInput}
                                             inputProps={{
-                                                type: "mail",
+                                                type: "email",
                                                 endAdornment: (
                                                     <InputAdornment position="end">
                                                         <Email className={classes.inputIconsColor} />
