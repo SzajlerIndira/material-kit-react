@@ -26,7 +26,7 @@ class SectionPersonalInfo extends React.Component {
         super(props);
         this.state = {
             name : "",
-            mail : "",
+            email : "",
             phone : "",
             selectedDay:' ',
             selectedSlot:' ',
@@ -43,7 +43,8 @@ class SectionPersonalInfo extends React.Component {
 
     }
     handleChangeUserInput = (event) => {
-        this.setState({ [event.target.name] : event.target.value });
+            this.setState({[event.target.name]: event.target.value});
+
     }
     handleClickHour( value) {
         let day =this.props.freeSlots[this.state.selectedDay];
@@ -93,7 +94,7 @@ class SectionPersonalInfo extends React.Component {
     }
 
     handleSubmit(event) {
-    const payload =JSON.stringify({"name": this.state.name, "email": this.state.mail, "phone": this.state.phone,
+    const payload =JSON.stringify({"name": this.state.name, "mail": this.state.email, "phone": this.state.phone,
     "selectedSlot": this.state.selectedSlot});
     console.log(payload);
 
@@ -126,10 +127,16 @@ class SectionPersonalInfo extends React.Component {
             <SectionFailedBooking/>
         </div>
     }
+    validatePhone = (event)=>{
+        let phoneNum = /^\+36(?:(?:(?:1|20|30|31|50|70)[1-9]\d{6})|[1-9]\d{7})$/gm;
+        if(event.target.value.match(phoneNum)) {
+            this.handleChangeUserInput(event);
+        }
+    }
 
     handleError = e => {
         this.state.isWarning = false;
-        if (this.state.name ==""||this.state.mail== "" || this.state.phone=="" || this.state.selectedDay == ""
+        if (this.state.name ==""||this.state.email== "" || this.state.phone=="" || this.state.selectedDay == ""
             || this.state.selectedSlot == "") {
             this.setState({isWarning: true});
         }else {
@@ -185,7 +192,6 @@ class SectionPersonalInfo extends React.Component {
 
                                             inputProps={{
                                                 type: "name",
-
                                                 endAdornment: (
                                                     <InputAdornment position="end">
                                                         <People className={classes.inputIconsColor} />
@@ -211,16 +217,16 @@ class SectionPersonalInfo extends React.Component {
                                             }}
                                         />
                                         <CustomInput required={true}
-                                            labelText="Telefonszám..."
+                                            labelText="Telefonszám  pl:+36203176914"
                                             id="phone"
                                             name="phone"
                                             errorText="This field is required"
                                             formControlProps={{
                                                 fullWidth: true
                                             }}
-                                            onChange={this.handleChangeUserInput}
+                                            onChange={this.validatePhone}
                                             inputProps={{
-                                                type: "phone",
+                                                type: "text",
                                                 endAdornment: (
                                                     <InputAdornment position="end">
                                                         <Phone className={classes.inputIconsColor} />
@@ -254,47 +260,6 @@ class SectionPersonalInfo extends React.Component {
                                         <Button label="submit" simple color="primary" size="lg" onClick={(event) =>  this.handleError(event)}>
                                             Időpont mentése
                                         </Button>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                                     </CardFooter>
                                 </form>
                             </Card>

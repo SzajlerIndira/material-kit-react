@@ -22,7 +22,6 @@ class SectionWarningNotification extends React.Component {
               <b>HIÁNYOS ADATLAP</b> Kérlek, adj meg minden paramétert!
             </span>
                     }
-
                     color="warning"
                     icon={Warning}
                 />
