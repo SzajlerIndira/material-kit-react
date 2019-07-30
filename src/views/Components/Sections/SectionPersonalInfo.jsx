@@ -134,6 +134,13 @@ class SectionPersonalInfo extends React.Component {
         }
     }
 
+    validateEmail = (event)=>{
+        let email = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/;
+        if (email.test(event.target.value)) {
+            this.handleChangeUserInput(event);
+        }
+    }
+
     handleError = e => {
         this.state.isWarning = false;
         if (this.state.name ==""||this.state.email== "" || this.state.phone=="" || this.state.selectedDay == ""
@@ -206,7 +213,7 @@ class SectionPersonalInfo extends React.Component {
                                             formControlProps={{
                                                 fullWidth: true
                                             }}
-                                            onChange={this.handleChangeUserInput}
+                                            onChange={this.validateEmail}
                                             inputProps={{
                                                 type: "email",
                                                 endAdornment: (
