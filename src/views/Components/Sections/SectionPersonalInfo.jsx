@@ -39,7 +39,11 @@ class SectionPersonalInfo extends React.Component {
             neededTime:' ',
             isBookingFailed:'none',
             isAppointmentSaved: false,
-            warningText:' Kérlek, adj meg minden paramétert!',
+            nameError: false,
+            emailError: false,
+            confirmEmailError: false,
+            phoneError: false,
+
         };
         this.handleChangeUserInput = this.handleChangeUserInput.bind(this);
         this.handleClickDay = this.handleClickDay.bind(this);
@@ -49,10 +53,9 @@ class SectionPersonalInfo extends React.Component {
     handleChangeUserInput = (event) => {
         this.setState({[event.target.name]: event.target.value}, () => {
             console.log(this.state.phone);
-           if(this.validateEmail() ||
+           if(this.validateName()||this.validateEmail() ||
             this.checkIdenticalEmail() ||
-            this.validatePhone()||
-           this.state.name==='') {
+            this.validatePhone()) {
                this.setState({isWarning: true})
            } else {
                this.setState({isWarning:false})
@@ -166,33 +169,39 @@ class SectionPersonalInfo extends React.Component {
     validatePhone(){
         let phoneNum = new RegExp(/^\+36(20|30|31|50|70)\d{7}$/gm);
         if(this.state.phone.match(phoneNum)) {
-            // this.setState({isWarning:false});
+            this.setState({phoneError:false});
             return false;
-    } else {
-            // this.setState({isWarning:true});
-            this.state.warningText = ' Nem megfelelő telefonszám!';
+        } else {
+            this.setState({phoneError:true});
             return true;
+        }
+    }
+    validateName(){
+        if(this.state.name==="") {
+            this.setState({nameError:true});
+            return true;
+        } else {
+            this.setState({nameError:false});
+            return false;
         }
     }
 
     validateEmail(){
         let email = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/;
         if (email.test(this.state.email)) {
+            this.setState({emailError:false});
             return false;
-            // this.setState({isWarning:false});
         }else{
-            // this.setState({isWarning:true});
-            this.state.warningText = ' Nem megfelelő email formátum!';
+            this.setState({emailError:true});
             return true
         }
     }
     checkIdenticalEmail(){
         if(this.state.email === this.state.confirmEmail){
-            // this.setState({isWarning:false});
+            this.setState({confirmEmailError:false});
             return false;
         }else{
-            // this.setState({isWarning:true});
-            this.state.warningText = ' Email címek nem egyeznek!';
+            this.setState({confirmEmailError:true});
             return true;
         }
     }
@@ -255,11 +264,12 @@ class SectionPersonalInfo extends React.Component {
                                             labelText="Név..."
                                             id="name"
                                             name="name"
-                                            
+
                                             onChange={this.handleChangeUserInput}
 
                                             formControlProps={{
-                                                fullWidth: true
+                                                fullWidth: true,
+                                                error: this.state.nameError
                                             }}
 
                                             inputProps={{
@@ -276,7 +286,8 @@ class SectionPersonalInfo extends React.Component {
                                             id="email"
                                             name="email"
                                             formControlProps={{
-                                                fullWidth: true
+                                                fullWidth: true,
+                                                error: this.state.emailError
                                             }}
                                             onChange={this.handleChangeUserInput}
                                             inputProps={{
@@ -293,7 +304,8 @@ class SectionPersonalInfo extends React.Component {
                                             id="confirmEmail"
                                             name="confirmEmail"
                                             formControlProps={{
-                                                fullWidth: true
+                                                fullWidth: true,
+                                                error: this.state.confirmEmailError
                                             }}
                                             onChange={this.handleChangeUserInput}
                                             inputProps={{
@@ -311,7 +323,8 @@ class SectionPersonalInfo extends React.Component {
                                             name="phone"
                                             errorText="This field is required"
                                             formControlProps={{
-                                                fullWidth: true
+                                                fullWidth: true,
+                                                error: this.state.phoneError
                                             }}
                                             onChange={this.handleChangeUserInput}
                                             inputProps={{
