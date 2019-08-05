@@ -16,7 +16,7 @@ import CardFooter from "components/Card/CardFooter.jsx";
 import Button from "components/CustomButtons/Button.jsx";
 import CustomInput from "components/CustomInput/CustomInput.jsx";
 
-import questionnaireStyle from "assets/jss/material-kit-react/views/componentsSections/questionnaireStyleireStyle.jsx";
+import questionnaireStyle from "assets/jss/material-kit-react/views/componentsSections/questionnaireStyle.jsx";
 import CustomDropdown from "components/CustomDropdown/CustomDropdown.jsx";
 import SectionWarningNotification from "views/Components/Sections/SectionWarningNotification.jsx";
 import SectionFailedBooking from "views/Components/Sections/SectionFailedBooking.jsx";
