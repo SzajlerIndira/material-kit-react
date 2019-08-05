@@ -48,7 +48,8 @@ class SectionQuestionnaire extends React.Component {
 
     handleClickNailType( value) {
         this.setState({selectedNail: value});
-        this.setState({buttonTextNailType:value})
+        this.setState({buttonTextNailType:value});
+        this.setState({selectedNailStyle:' '});
     }
     handleClickDecor( value) {
         this.setState({selectedDecor: value});
@@ -131,7 +132,7 @@ class SectionQuestionnaire extends React.Component {
     }
     handleError(event){
         this.state.isWarning = false;
-        if (this.state.selectedNail ==' ' || this.state.selectedNailStyle ==' ' || this.state.selectedDecor == ' ') {
+        if (this.state.selectedNail =='' || this.state.selectedNailStyle ==' ' || this.state.selectedDecor == ' ') {
             this.setState({isWarning: true})
         }else {
             this.handleClick();
