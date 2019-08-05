@@ -46,7 +46,10 @@ class SectionPersonalInfo extends React.Component {
 
     }
     handleChangeUserInput = (event) => {
-        this.setState({[event.target.name]: event.target.value});
+        this.setState({[event.target.name]: event.target.value}, () => {
+            console.log(this.state.phone);
+            this.validatePhone();});
+
     }
 
     handleClickHour(value) {
@@ -151,14 +154,17 @@ class SectionPersonalInfo extends React.Component {
             <SectionBookingSuccess/>
         </div>
     }
-    validatePhone = (event)=>{
-        this.state.warningText = '';
-        let phoneNum = /^\+36(?:(?:(?:1|20|30|31|50|70)[1-9]\d{6})|[1-9]\d{7})$/gm;
-        if(event.target.value.match(phoneNum)) {
-            this.handleChangeUserInput(event);
-        }else{
+
+    validatePhone(){
+        let phoneNum = new RegExp(/^\+36(20|30|31|50|70)\d{7}$/gm);
+        if(this.state.phone.match(phoneNum)) {
+            console.log(this.state.isWarning);
+            this.setState({isWarning:false});
+
+    } else {
+            this.setState({isWarning:true});
             this.state.warningText = ' Nem megfelelő telefonszám!';
-        }
+    }
     }
 
     validateEmail = (event)=>{
@@ -251,7 +257,7 @@ class SectionPersonalInfo extends React.Component {
                                             formControlProps={{
                                                 fullWidth: true
                                             }}
-                                            onChange={this.validateEmail}
+                                            onChange={this.handleChangeUserInput}
                                             inputProps={{
                                                 type: "email",
                                                 endAdornment: (
@@ -269,7 +275,7 @@ class SectionPersonalInfo extends React.Component {
                                             formControlProps={{
                                                 fullWidth: true
                                             }}
-                                            onChange={this.validatePhone}
+                                            onChange={this.handleChangeUserInput}
                                             inputProps={{
                                                 type: "text",
                                                 endAdornment: (
