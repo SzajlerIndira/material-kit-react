@@ -28,6 +28,7 @@ class SectionPersonalInfo extends React.Component {
         this.state = {
             name : "",
             email : "",
+            confirmEmail:'',
             phone : "",
             selectedDay:' ',
             selectedSlot:' ',
@@ -48,8 +49,14 @@ class SectionPersonalInfo extends React.Component {
     handleChangeUserInput = (event) => {
         this.setState({[event.target.name]: event.target.value}, () => {
             console.log(this.state.phone);
-            this.validatePhone();
-            this.validateEmail();
+           if(this.validateEmail() ||
+            this.checkIdenticalEmail() ||
+            this.validatePhone()||
+           this.state.name==='') {
+               this.setState({isWarning: true})
+           } else {
+               this.setState({isWarning:false})
+           }
         });
     }
 
@@ -159,22 +166,34 @@ class SectionPersonalInfo extends React.Component {
     validatePhone(){
         let phoneNum = new RegExp(/^\+36(20|30|31|50|70)\d{7}$/gm);
         if(this.state.phone.match(phoneNum)) {
-            console.log(this.state.isWarning);
-            this.setState({isWarning:false});
-
+            // this.setState({isWarning:false});
+            return false;
     } else {
-            this.setState({isWarning:true});
+            // this.setState({isWarning:true});
             this.state.warningText = ' Nem megfelelő telefonszám!';
-    }
+            return true;
+        }
     }
 
     validateEmail(){
         let email = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/;
         if (email.test(this.state.email)) {
-            this.setState({isWarning:false});
+            return false;
+            // this.setState({isWarning:false});
         }else{
-            this.setState({isWarning:true});
+            // this.setState({isWarning:true});
             this.state.warningText = ' Nem megfelelő email formátum!';
+            return true
+        }
+    }
+    checkIdenticalEmail(){
+        if(this.state.email === this.state.confirmEmail){
+            // this.setState({isWarning:false});
+            return false;
+        }else{
+            // this.setState({isWarning:true});
+            this.state.warningText = ' Email címek nem egyeznek!';
+            return true;
         }
     }
 
@@ -236,6 +255,7 @@ class SectionPersonalInfo extends React.Component {
                                             labelText="Név..."
                                             id="name"
                                             name="name"
+                                            
                                             onChange={this.handleChangeUserInput}
 
                                             formControlProps={{
@@ -261,6 +281,23 @@ class SectionPersonalInfo extends React.Component {
                                             onChange={this.handleChangeUserInput}
                                             inputProps={{
                                                 type: "email",
+                                                endAdornment: (
+                                                    <InputAdornment position="end">
+                                                        <Email className={classes.inputIconsColor}/>
+                                                    </InputAdornment>
+                                                )
+                                            }}
+                                            />
+                                        <CustomInput
+                                            labelText="Confirm Email..."
+                                            id="confirmEmail"
+                                            name="confirmEmail"
+                                            formControlProps={{
+                                                fullWidth: true
+                                            }}
+                                            onChange={this.handleChangeUserInput}
+                                            inputProps={{
+                                                type: "text",
                                                 endAdornment: (
                                                     <InputAdornment position="end">
                                                         <Email className={classes.inputIconsColor}/>
