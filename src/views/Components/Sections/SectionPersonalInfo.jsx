@@ -20,145 +20,166 @@ import loginStyle from "assets/jss/material-kit-react/views/componentsSections/l
 import CustomDropdown from "components/CustomDropdown/CustomDropdown.jsx";
 import SectionWarningNotification from "views/Components/Sections/SectionWarningNotification.jsx";
 import SectionFailedBooking from "views/Components/Sections/SectionFailedBooking.jsx";
+import SectionBookingSuccess from "views/Components/Sections/SectionBookingSuccess.jsx";
 
 class SectionPersonalInfo extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            name : "",
-            mail : "",
-            phone : "",
-            selectedDay:' ',
-            selectedSlot:' ',
+            name: "",
+            mail: "",
+            phone: "",
+            selectedDay: ' ',
+            selectedSlot: ' ',
             isWarning: false,
             hours: [],
-            buttonTextDays:'Választható napok:',
-            buttonTextHours:'Választható órák:',
-            neededTime:' ',
-            isBookingFailed: false,
+            buttonTextDays: 'Választható napok:',
+            buttonTextHours: 'Választható órák:',
+            neededTime: ' ',
+            isBookingFailed: 'none',
+
         };
         this.handleChangeUserInput = this.handleChangeUserInput.bind(this);
         this.handleClickDay = this.handleClickDay.bind(this);
         this.handleClickHour = this.handleClickHour.bind(this);
 
     }
+
     handleChangeUserInput = (event) => {
-        this.setState({ [event.target.name] : event.target.value });
+        this.setState({[event.target.name]: event.target.value});
     }
-    handleClickHour( value) {
-        let day =this.props.freeSlots[this.state.selectedDay];
-        for(let key in day) {
-            if (day[key]["startHour"]===value) {
+
+    handleClickHour(value) {
+        let day = this.props.freeSlots[this.state.selectedDay];
+        for (let key in day) {
+            if (day[key]["startHour"] === value) {
                 this.state.selectedSlot = day[key];
             }
         }
-        this.setState({buttonTextHours:value});
+        this.setState({buttonTextHours: value});
     }
-    handleClickDay( value){
-        this.setState({selectedDay : value });
+
+    handleClickDay(value) {
+        this.setState({selectedDay: value});
         this.setState({buttonTextDays: value});
     }
-    renderNeededTime(){
-        let day =this.props.freeSlots[this.state.selectedDay];
-        for(let key in day) {
-            if(this.state.neededTime == ' ') {
+
+    renderNeededTime() {
+        let day = this.props.freeSlots[this.state.selectedDay];
+        for (let key in day) {
+            if (this.state.neededTime == ' ') {
                 this.state.neededTime = day[key]["neededTime"]
                 break;
             }
         }
-        return(
+        return (
             <div>
                 <p>A köröm elkészítése {this.state.neededTime} órát vesz igénybe.</p>
             </div>
         );
     }
 
-    renderHours(){
-        const { classes } = this.props;
-        let day =this.props.freeSlots[this.state.selectedDay];
+    renderHours() {
+        const {classes} = this.props;
+        let day = this.props.freeSlots[this.state.selectedDay];
         let hours = [];
         for (let key in day) {
             hours.push(day[key]["startHour"]);
         }
-        this.state.hours=hours;
+        this.state.hours = hours;
         return (
-        <CustomDropdown onClick={this.handleClickHour.bind(this)}
-                        buttonText={this.state.buttonTextHours}
-                        buttonProps={{
-                            className: classes.navLink,
-                            color: "rose"
-                        }}
-                        dropdownList={this.state.hours}
-        />);
+            <CustomDropdown onClick={this.handleClickHour.bind(this)}
+                            buttonText={this.state.buttonTextHours}
+                            buttonProps={{
+                                className: classes.navLink,
+                                color: "rose"
+                            }}
+                            dropdownList={this.state.hours}
+            />);
     }
 
     handleSubmit(event) {
-    const payload =JSON.stringify({"name": this.state.name, "mail": this.state.mail, "phone": this.state.phone,
-    "selectedSlot": this.state.selectedSlot});
-    console.log(payload);
+        const payload = JSON.stringify({
+            "name": this.state.name, "mail": this.state.mail, "phone": this.state.phone,
+            "selectedSlot": this.state.selectedSlot
+        });
+        console.log(payload);
 
-    fetch('http://localhost:8080/personal', {
-        method: 'POST',
-        mode: 'cors',
-        body: payload,
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    })
-        .then(response => response.json())
-        .then(response => this.checkConfimation(response))
-        .then(response => console.log('Success:', response))
-        .catch(error => console.error('Error:', error));
+        fetch('http://localhost:8080/personal', {
+            method: 'POST',
+            mode: 'cors',
+            body: payload,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => response.json())
+            .then(response => this.checkConfimation(response))
+            .then(response => console.log('Success:', response))
+            .catch(error => console.error('Error:', error));
     }
 
     checkConfimation(response) {
         console.log(response["status"]);
-        if (response["status"] === "fail"){
-            this.setState({isBookingFailed:true});
-            this.props.saveFreeSlots( response["slots"]);
+        if (response["status"] === "fail") {
+            this.setState({isBookingFailed: true});
+            this.props.saveFreeSlots(response["slots"]);
 
         }
-        // return undefined;
+        if (response["status"] === "success") {
+            this.setState({isBookingFailed: false});
+
+        }
     }
 
-    renderBookingFailed(){
+    renderBookingFailed() {
         return <div>
             <SectionFailedBooking/>
         </div>
     }
 
+    renderBookingSuccess() {
+        return <div>
+            <SectionBookingSuccess/>
+        </div>
+    }
+
     handleError = e => {
         this.state.isWarning = false;
-        if (this.state.name ==""||this.state.mail== "" || this.state.phone=="" || this.state.selectedDay == ""
+        if (this.state.name == "" || this.state.mail == "" || this.state.phone == "" || this.state.selectedDay == ""
             || this.state.selectedSlot == "") {
             this.setState({isWarning: true});
-        }else {
+        } else {
             this.handleSubmit();
         }
     }
-    renderAlert(){
-        return(
+
+    renderAlert() {
+        return (
             <div>
                 <SectionWarningNotification/>
             </div>
         );
     }
+
     render() {
-        const { classes } = this.props;
+        const {classes} = this.props;
         let hoursPerDay;
         let neededTime;
-        if(this.state.selectedDay!==" "){
+        if (this.state.selectedDay !== " ") {
             hoursPerDay = this.renderHours();
             neededTime = this.renderNeededTime();
         }
         let warning;
-        if(this.state.isWarning) {
+        if (this.state.isWarning) {
             warning = this.renderAlert();
         }
 
         let bookingFailed;
-        if (this.state.isBookingFailed) {
-          bookingFailed = this.renderBookingFailed();
+        if (this.state.isBookingFailed === true) {
+            bookingFailed = this.renderBookingFailed();
+        } else if (this.state.isBookingFailed === false) {
+            bookingFailed = this.renderBookingSuccess()
         }
         return (
             <div className={classes.section}>
@@ -188,7 +209,7 @@ class SectionPersonalInfo extends React.Component {
 
                                                 endAdornment: (
                                                     <InputAdornment position="end">
-                                                        <People className={classes.inputIconsColor} />
+                                                        <People className={classes.inputIconsColor}/>
                                                     </InputAdornment>
                                                 )
                                             }}
@@ -205,95 +226,57 @@ class SectionPersonalInfo extends React.Component {
                                                 type: "mail",
                                                 endAdornment: (
                                                     <InputAdornment position="end">
-                                                        <Email className={classes.inputIconsColor} />
+                                                        <Email className={classes.inputIconsColor}/>
                                                     </InputAdornment>
                                                 )
                                             }}
                                         />
                                         <CustomInput required={true}
-                                            labelText="Telefonszám..."
-                                            id="phone"
-                                            name="phone"
-                                            errorText="This field is required"
-                                            formControlProps={{
-                                                fullWidth: true
-                                            }}
-                                            onChange={this.handleChangeUserInput}
-                                            inputProps={{
-                                                type: "phone",
-                                                endAdornment: (
-                                                    <InputAdornment position="end">
-                                                        <Phone className={classes.inputIconsColor} />
-                                                    </InputAdornment>
-                                                )
-                                            }}
+                                                     labelText="Telefonszám..."
+                                                     id="phone"
+                                                     name="phone"
+                                                     errorText="This field is required"
+                                                     formControlProps={{
+                                                         fullWidth: true
+                                                     }}
+                                                     onChange={this.handleChangeUserInput}
+                                                     inputProps={{
+                                                         type: "phone",
+                                                         endAdornment: (
+                                                             <InputAdornment position="end">
+                                                                 <Phone className={classes.inputIconsColor}/>
+                                                             </InputAdornment>
+                                                         )
+                                                     }}
                                         />
-                                        <div>
-                                            {bookingFailed}
-                                        </div>
 
                                         <div>
                                             <CustomDropdown onClick={this.handleClickDay.bind(this)}
-                                                buttonText={this.state.buttonTextDays}
-                                                buttonProps={{
-                                                    className: classes.navLink,
-                                                    color: "rose"
-                                                }}
-                                                dropdownList={this.props.freeDays}
+                                                            buttonText={this.state.buttonTextDays}
+                                                            buttonProps={{
+                                                                className: classes.navLink,
+                                                                color: "rose"
+                                                            }}
+                                                            dropdownList={this.props.freeDays}
 
                                             />
-                                     </div>
+                                        </div>
                                         <div>
                                             {hoursPerDay}
                                         </div>
                                         <div>
                                             {neededTime}
                                         </div>
+
+                                        <div>
+                                            {bookingFailed}
+                                        </div>
                                     </CardBody>
                                     <CardFooter className={classes.cardFooter}>
-                                        <Button label="submit" simple color="primary" size="lg" onClick={(event) =>  this.handleError(event)}>
+                                        <Button label="submit" simple color="primary" size="lg"
+                                                onClick={(event) => this.handleError(event)}>
                                             Időpont mentése
                                         </Button>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
                                     </CardFooter>
                                 </form>
