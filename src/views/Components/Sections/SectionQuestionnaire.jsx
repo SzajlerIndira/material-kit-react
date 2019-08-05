@@ -49,6 +49,9 @@ class SectionQuestionnaire extends React.Component {
     handleClickNailType( value) {
         this.setState({selectedNail: value});
         this.setState({buttonTextNailType:value});
+        this.setState({buttonTextNatural:'Milyen körmöt szeretnél natúr körömre',
+            buttonTextGel:'Milyen körmöt szeretnél géllakk esetén',
+            buttonTextArtificial:'Milyen körmöt szeretnél műköröm esetén',});
         this.setState({selectedNailStyle:' '});
     }
     handleClickDecor( value) {
@@ -58,6 +61,7 @@ class SectionQuestionnaire extends React.Component {
     }
     handleClickNailStyle (value){
         this.setState({selectedNailStyle: value});
+        this.setState({buttonTextDecor:'Díszítés',selectedDecor: ' ',});
     }
     handleOnchangeNatural(value){
         this.setState({buttonTextNatural:value})
