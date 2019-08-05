@@ -36,6 +36,7 @@ class SectionPersonalInfo extends React.Component {
             buttonTextHours:'Választható órák:',
             neededTime:' ',
             isBookingFailed: false,
+            warningText:' Kérlek, adj meg minden paramétert!',
         };
         this.handleChangeUserInput = this.handleChangeUserInput.bind(this);
         this.handleClickDay = this.handleClickDay.bind(this);
@@ -128,16 +129,22 @@ class SectionPersonalInfo extends React.Component {
         </div>
     }
     validatePhone = (event)=>{
+        this.state.warningText = '';
         let phoneNum = /^\+36(?:(?:(?:1|20|30|31|50|70)[1-9]\d{6})|[1-9]\d{7})$/gm;
         if(event.target.value.match(phoneNum)) {
             this.handleChangeUserInput(event);
+        }else{
+            this.state.warningText = ' Nem megfelelő telefonszám!';
         }
     }
 
     validateEmail = (event)=>{
+        this.state.warningText = '';
         let email = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/;
         if (email.test(event.target.value)) {
             this.handleChangeUserInput(event);
+        }else{
+            this.state.warningText = ' Nem megfelelő email formátum!';
         }
     }
 
@@ -153,7 +160,7 @@ class SectionPersonalInfo extends React.Component {
     renderAlert(){
         return(
             <div>
-                <SectionWarningNotification/>
+                <SectionWarningNotification warningText = {this.state.warningText}/>
             </div>
         );
     }

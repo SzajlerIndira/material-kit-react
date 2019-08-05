@@ -10,6 +10,7 @@ import Clearfix from "components/Clearfix/Clearfix.jsx";
 import notificationsStyles from "assets/jss/material-kit-react/views/componentsSections/notificationsStyles.jsx";
 
 class SectionWarningNotification extends React.Component {
+
     render() {
         const { classes } = this.props;
         return (
@@ -19,7 +20,7 @@ class SectionWarningNotification extends React.Component {
                 <SnackbarContent
                     message={
                         <span>
-              <b>HIÁNYOS ADATLAP</b> Kérlek, adj meg minden paramétert!
+              <b>HIÁNYOS ADATLAP</b>{this.props.warningText}
             </span>
                     }
                     color="warning"
