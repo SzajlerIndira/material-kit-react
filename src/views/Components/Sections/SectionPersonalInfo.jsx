@@ -48,8 +48,9 @@ class SectionPersonalInfo extends React.Component {
     handleChangeUserInput = (event) => {
         this.setState({[event.target.name]: event.target.value}, () => {
             console.log(this.state.phone);
-            this.validatePhone();});
-
+            this.validatePhone();
+            this.validateEmail();
+        });
     }
 
     handleClickHour(value) {
@@ -167,12 +168,12 @@ class SectionPersonalInfo extends React.Component {
     }
     }
 
-    validateEmail = (event)=>{
-        this.state.warningText = '';
+    validateEmail(){
         let email = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/;
-        if (email.test(event.target.value)) {
-            this.handleChangeUserInput(event);
+        if (email.test(this.state.email)) {
+            this.setState({isWarning:false});
         }else{
+            this.setState({isWarning:true});
             this.state.warningText = ' Nem megfelelő email formátum!';
         }
     }
