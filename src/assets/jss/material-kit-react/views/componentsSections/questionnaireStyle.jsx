@@ -2,7 +2,7 @@ import { container } from "assets/jss/material-kit-react.jsx";
 
 import image from "assets/img/personalinfo-background.jpg";
 
-const loginStyle = {
+const questionnaireStyle = {
   section: {
     minHeight: "110vh",
     maxHeight: "1600px",
@@ -61,4 +61,4 @@ const loginStyle = {
   }
 };
 
-export default loginStyle;
+export default questionnaireStyle;

@@ -14,7 +14,6 @@ import GridItem from "components/Grid/GridItem.jsx";
 import Parallax from "components/Parallax/Parallax.jsx";
 // sections for this page
 import HeaderLinks from "components/Header/HeaderLinks.jsx";
-import SectionProfile from "./Sections/SectionProfile.jsx";
 import SectionPersonalInfo from"./Sections/SectionPersonalInfo";
 //scroll
 
@@ -48,7 +47,6 @@ class Components extends React.Component {
       <div>
         <Header
           brand="Maca Nails"
-          image={<SectionProfile />}
           rightLinks={<HeaderLinks />}
           fixed
           color="transparent"

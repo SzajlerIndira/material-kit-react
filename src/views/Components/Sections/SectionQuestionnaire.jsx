@@ -8,7 +8,7 @@ import GridItem from "components/Grid/GridItem.jsx";
 import Button from "components/CustomButtons/Button.jsx";
 
 
-import loginStyle from "assets/jss/material-kit-react/views/componentsSections/loginStyle.jsx";
+import questionnaireStyle from "assets/jss/material-kit-react/views/componentsSections/questionnaireStyleireStyle.jsx";
 import CustomDropdown from "components/CustomDropdown/CustomDropdown.jsx";
 import SectionWarningNotification from "views/Components/Sections/SectionWarningNotification.jsx";
 
@@ -241,4 +241,4 @@ class SectionQuestionnaire extends React.Component {
         );
     }
 }
-export default withStyles(loginStyle)(SectionQuestionnaire);
+export default withStyles(questionnaireStyle)(SectionQuestionnaire);
