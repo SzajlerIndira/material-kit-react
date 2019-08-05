@@ -53,7 +53,8 @@ class SectionQuestionnaire extends React.Component {
     }
     handleClickDecor( value) {
         this.setState({selectedDecor: value});
-        this.setState({buttonTextDecor:value})
+        this.setState({buttonTextDecor:value});
+        this.setState({isWarning: false});
     }
     handleClickNailStyle (value){
         this.setState({selectedNailStyle: value});
@@ -138,7 +139,7 @@ class SectionQuestionnaire extends React.Component {
             this.handleClick();
         }
     }
-    handleClick(event){
+    handleClick(){
 
         const payload = JSON.stringify({
             nailStyle: this.state.selectedNailStyle,
@@ -160,7 +161,10 @@ class SectionQuestionnaire extends React.Component {
             .then(response => console.log('Success:',response, this.state.freeSlots))
             .catch(error => console.error('Error:', error))
 
+
         this.setState({"href": '#personal'});
+        this.setState({selectedNail: ' ',selectedNailStyle: ' ',
+            selectedDecor: ' ',});
     }
     renderAlert(){
         return(
@@ -218,9 +222,6 @@ class SectionQuestionnaire extends React.Component {
                             </div>
                         </GridItem>
                     </GridContainer>
-                    {/*/<div className={classes.title}>*/}
-                        {/*<h3>Választásod: {this.state.selectedNail} {this.state.selectedNailStyle} {this.state.selectedDecor}</h3>*/}
-                    {/*</div>*/}
                     <div id="buttons">
                         <Button id="submitbutton" label="submit" color="rose" round
                                 onClick={(event) => this.handleError(event)}
