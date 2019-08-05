@@ -37,6 +37,7 @@ class SectionPersonalInfo extends React.Component {
             buttonTextHours: 'Választható órák:',
             neededTime: ' ',
             isBookingFailed: 'none',
+            isAppointmentSaved: false,
 
         };
         this.handleChangeUserInput = this.handleChangeUserInput.bind(this);
@@ -98,6 +99,15 @@ class SectionPersonalInfo extends React.Component {
             />);
     }
 
+
+    renderSaveAppointment() {
+        return (<Button label="submit" simple color="primary" size="lg"
+                        onClick={(event) => this.handleError(event)}>
+                Időpont mentése
+            </Button>
+        );
+    }
+
     handleSubmit(event) {
         const payload = JSON.stringify({
             "name": this.state.name, "mail": this.state.mail, "phone": this.state.phone,
@@ -128,6 +138,7 @@ class SectionPersonalInfo extends React.Component {
         }
         if (response["status"] === "success") {
             this.setState({isBookingFailed: false});
+            this.setState({isAppointmentSaved : true})  ;
 
         }
     }
@@ -166,6 +177,10 @@ class SectionPersonalInfo extends React.Component {
         const {classes} = this.props;
         let hoursPerDay;
         let neededTime;
+        let saveAppointmentButton;
+        if (this.state.isAppointmentSaved===false){
+            saveAppointmentButton = this.renderSaveAppointment();
+        }
         if (this.state.selectedDay !== " ") {
             hoursPerDay = this.renderHours();
             neededTime = this.renderNeededTime();
@@ -268,15 +283,14 @@ class SectionPersonalInfo extends React.Component {
                                             {neededTime}
                                         </div>
 
+                                    </CardBody>
+                                    <CardFooter className={classes.cardFooter}>
                                         <div>
                                             {bookingFailed}
                                         </div>
-                                    </CardBody>
-                                    <CardFooter className={classes.cardFooter}>
-                                        <Button label="submit" simple color="primary" size="lg"
-                                                onClick={(event) => this.handleError(event)}>
-                                            Időpont mentése
-                                        </Button>
+                                        <div>
+                                            {saveAppointmentButton}
+                                        </div>
 
                                     </CardFooter>
                                 </form>
