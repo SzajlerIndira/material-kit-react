@@ -10,7 +10,7 @@ import Button from "components/CustomButtons/Button.jsx";
 
 import questionnaireStyle from "assets/jss/material-kit-react/views/componentsSections/questionnaireStyle.jsx";
 import CustomDropdown from "components/CustomDropdown/CustomDropdown.jsx";
-import SectionWarningNotification from "views/Components/Sections/SectionWarningNotification.jsx";
+import SectionWarningNotification from "views/BookingPage/Sections/SectionWarningNotification.jsx";
 
 
 class SectionQuestionnaire extends React.Component {

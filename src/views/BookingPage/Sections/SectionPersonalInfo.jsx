@@ -18,9 +18,9 @@ import CustomInput from "components/CustomInput/CustomInput.jsx";
 
 import questionnaireStyle from "assets/jss/material-kit-react/views/componentsSections/questionnaireStyle.jsx";
 import CustomDropdown from "components/CustomDropdown/CustomDropdown.jsx";
-import SectionWarningNotification from "views/Components/Sections/SectionWarningNotification.jsx";
-import SectionFailedBooking from "views/Components/Sections/SectionFailedBooking.jsx";
-import SectionBookingSuccess from "views/Components/Sections/SectionBookingSuccess.jsx";
+import SectionWarningNotification from "views/BookingPage/Sections/SectionWarningNotification.jsx";
+import SectionFailedBooking from "views/BookingPage/Sections/SectionFailedBooking.jsx";
+import SectionBookingSuccess from "views/BookingPage/Sections/SectionBookingSuccess.jsx";
 
 class SectionPersonalInfo extends React.Component {
     constructor(props) {

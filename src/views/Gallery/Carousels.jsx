@@ -3,9 +3,9 @@ import React from "react";
 import withStyles from "@material-ui/core/styles/withStyles";
 
 import carouselStyle from "assets/jss/material-kit-react/views/componentsSections/carouselStyle.jsx";
-import SectionProfile from "../Components/Components";
+import SectionProfile from "../BookingPage/Components";
 import classNames from "classnames";
-import SectionCarousel from "../Carousel/Sections/SectionCarousel.jsx";
+import SectionCarousel from "../Gallery/Sections/SectionCarousel.jsx";
 import Footer from "../../components/Footer/Footer";
 import Header from "../../components/Header/Header";
 import HeaderLinks from "../../components/Header/HeaderLinks";

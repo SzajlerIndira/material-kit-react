@@ -6,8 +6,8 @@ import { Router, Route, Switch } from "react-router-dom";
 import "assets/scss/material-kit-react.scss?v=1.4.0";
 
 // pages for this product
-import Components from "views/Components/Components.jsx";
-import Carousels from "views/Carousel/Carousels.jsx";
+import Components from "views/BookingPage/Components.jsx";
+import Carousels from "views/Gallery/Carousels.jsx";
 
 var hist = createBrowserHistory();
 
