@@ -88,7 +88,7 @@ class SectionPersonalInfo extends React.Component {
         }
         return (
             <div>
-                <p>A köröm elkészítése {this.state.neededTime} órát vesz igénybe.</p>
+                <h6>A köröm elkészítése {this.state.neededTime} órát vesz igénybe.</h6>
             </div>
         );
     }
@@ -349,12 +349,11 @@ class SectionPersonalInfo extends React.Component {
                                             />
                                         </div>
                                         <div>
-                                            {hoursPerDay}
-                                        </div>
-                                        <div>
                                             {neededTime}
                                         </div>
-
+                                        <div>
+                                            {hoursPerDay}
+                                        </div>
                                     </CardBody>
                                     <CardFooter className={classes.cardFooter}>
                                         <div>
