@@ -31,7 +31,9 @@ const customDropdownStyle = theme => ({
     textAlign: "left",
     listStyle: "none",
     backgroundColor: "#fff",
-    backgroundClip: "padding-box"
+    backgroundClip: "padding-box",
+    maxHeight: "20em",
+    overflow: "scroll"
   },
   menuList: {
     padding: "0"
@@ -137,7 +139,7 @@ const customDropdownStyle = theme => ({
     verticalAlign: "middle",
     borderTop: "4px solid",
     borderRight: "4px solid transparent",
-    borderLeft: "4px solid transparent"
+    borderLeft: "4px solid transparent",
   },
   caretActive: {
     transform: "rotate(180deg)"
